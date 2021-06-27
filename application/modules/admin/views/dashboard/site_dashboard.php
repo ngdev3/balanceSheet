@@ -19,7 +19,9 @@
                                     <div class="layer w-100">
                                           <div class="peers ai-sb fxw-nw">
                                           <!--<div class="peer peer-greed"><span id="sparklinedash3"></span></div>-->
-                                          <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500"><?php if(!empty($total_weight)) echo @$maxpurchaser->maxpurchaser; ?></span></div>
+                                          <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500"><?php if(!empty($maxpurchaser)) { //echo @$maxpurchaser->maxpurchaser; 
+                                          }else{ echo "Paddy"; } ?>
+                                          </span></div>
                                           </div>
                                     </div>
                                     </div>
@@ -29,12 +31,12 @@
                            <a href="Javascript:void(0)">
                               <div class="layers bd bgc-white p-20">
                                  <div class="layer w-100 mB-20">
-                                    <h6 class="lh-1">Total <?php if($_SESSION['fy']->product_type == '2'){ echo "Wheat"; }else{ echo "Paddy"; } ?> Purchase (qtl)</h6>
+                                    <h6 class="lh-1">Total  <?php if($_SESSION['fy']->product_type == '2'){ echo "Wheat"; }else{ echo "Paddy"; } ?> Purchase (qtl)</h6>
                                  </div>
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash4"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($total_weight)) echo round($total_weight->FinalWeight); ?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($total_weight)) { echo round(@$total_weight->FinalWeight); } else { echo "0"; } ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -48,7 +50,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash3"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"><?php if(!empty($total_weight))  echo  round($FinalAmountPaddy->FinalAmountPaddy);?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"><?php if(!empty($total_weight)) { echo round($FinalAmountPaddy->FinalAmountPaddy); }else { echo "0"; } ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -106,7 +108,7 @@
                                     <div class="layer w-100">
                                           <div class="peers ai-sb fxw-nw">
                                           <!--<div class="peer peer-greed"><span id="sparklinedash3"></span></div>-->
-                                          <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500"><?php if(!empty($total_weight)) {echo @$first->totalQuant; }else{ echo "0";}?></span></div>
+                                          <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500"><?php if(!empty($first)) {echo @$first->totalQuant; }else{ echo "0";}?></span></div>
                                           </div>
                                     </div>
                                     </div>
@@ -121,7 +123,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash4"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($total_weight)) {echo (@$second->totalQuant); }else{ echo "0";}?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($second)) {echo (@$second->totalQuant); }else{ echo "0";}?></span></div>
                                     </div>
                                  </div>
                               </div>

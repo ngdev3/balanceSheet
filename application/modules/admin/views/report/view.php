@@ -28,7 +28,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach($users as $key => $user){?>
+                                            <?php if(!empty($users)){foreach($users as $key => $user){?>
                                             <tr style="text-align: center; font-size:large ;font-weight:600;">
                                                 <td><?php echo $key+1;?></td>
                                                 <td><?php echo $user->account_no;?></td>
@@ -38,7 +38,7 @@
                                                 <td><?php if(round($user->finalamt,2) > 0){ echo '<b style="color:green">जमा | '.round($user->finalamt,2).' ₹ </b> '; } else if(round($user->finalamt,2) == 0){ echo '<b style="color:black">कुछ नहीं | '.round($user->finalamt,2).' ₹ </b> ';}else{ echo '<b style="color:red">नाम | '.abs(round($user->finalamt,2)).' ₹ </b>'; }?></td>
                                                
                                             </tr>
-                                       <?php }; ?>
+                                       <?php }}; ?>
                                             
 
                                         </tbody>
