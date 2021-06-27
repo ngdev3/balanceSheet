@@ -121,7 +121,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash4"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($total_weight)) {echo ($second->totalQuant); }else{ echo "0";}?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($total_weight)) {echo (@$second->totalQuant); }else{ echo "0";}?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -135,7 +135,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash3"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"><?php if(!empty($jamura)) {echo  ($jamura->totalQuant); }else{ echo "0";}?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"><?php if(!empty($jamura)) {echo  (@$jamura->totalQuant); }else{ echo "0";}?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -148,7 +148,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash4"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500"><?php if(!empty($pcf)) { echo ($pcf->totalQuant); }else{ echo "0";} ?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500"><?php if(!empty($pcf)) { echo (@$pcf->totalQuant); }else{ echo "0";} ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -208,7 +208,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash4"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($upss)) {echo ($upss->totalQuant);}else{ echo "0";} ?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"><?php if(!empty($upss)) {echo (@$upss->totalQuant);}else{ echo "0";} ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -222,7 +222,7 @@
                                  <div class="layer w-100">
                                     <div class="peers ai-sb fxw-nw">
                                        <!--<div class="peer peer-greed"><span id="sparklinedash3"></span></div>-->
-                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"><?php if(!empty($todharpur))  { echo ($todharpur->totalQuant); }else{ echo "0";}?></span></div>
+                                       <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"><?php if(!empty($todharpur))  { echo (@$todharpur->totalQuant); }else{ echo "0";}?></span></div>
                                     </div>
                                  </div>
                               </div>
