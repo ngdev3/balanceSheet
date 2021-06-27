@@ -78,9 +78,9 @@ if($_SERVER['HTTP_HOST'] == 'balancesheetsolutions.online'){
 	$db['default'] = array(
 		'dsn'	=> '',
 		'hostname' => 'localhost',
-		'username' => 'u930296518_admin',
-		'password' => ']+ei1o5W',
-		'database' => 'u930296518_mykisandata',
+		'username' => 'u930296518_balancesheet',
+		'password' => '8sD1e?rOo!C>',
+		'database' => 'u930296518_balancesheet',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,
