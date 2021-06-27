@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-if( $_SERVER['HTTP_HOST'] == 'balancesheetsolutions.online'){
+if( $_SERVER['HTTP_HOST'] == 'balancesheetsolutions.online' || $_SERVER['HTTP_HOST'] == 'www.balancesheetsolutions.online'){
     
     $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'];
 }else{
