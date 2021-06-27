@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 //print_r($_SERVER['HTTP_HOST']); die;
-if( $_SERVER['SERVER_NAME'] == 'thecrindustries.com' || $_SERVER['SERVER_NAME'] == 'www.thecrindustries.com'){
+if( $_SERVER['SERVER_NAME'] == 'balancesheetsolutions.online' || $_SERVER['SERVER_NAME'] == 'www.balancesheetsolutions.online'){
 
 	$db['default'] = array(
 		'dsn'	=> '',
