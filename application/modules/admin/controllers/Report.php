@@ -502,6 +502,13 @@ class Report extends CI_Controller {
 	}
 
 	
+	public function deleteMyEntry(){
+		if(isPostBack()){
+			$resp = $this->Report_mod->deleteMyParcha($_POST['deleteEntry']);
+			echo $resp;
+		}
+	}
+	
 	
 
 }
