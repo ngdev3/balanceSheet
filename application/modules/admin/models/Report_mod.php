@@ -1478,5 +1478,19 @@ function publisher_mapping_deatils($id){
 
     }
 
+        
+function deleteMyParcha($id){
+    $this->db->where('rokad_id', $id);
+    $this->db->delete('aa_rokad'); 
+    if ($this->db->affected_rows() > 0)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
 
 }

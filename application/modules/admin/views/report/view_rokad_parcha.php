@@ -54,9 +54,9 @@
     </div>
 
     <div class="grid-child green">
-                <?php echo $val->account_name;?>
+                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
     </div>
-  
+   
     </div>
         <?php }
     }?>
@@ -74,7 +74,7 @@
     </div>
     </div>
     <div class="col-6" style="width:50%">
-      <p class="text-center" style="font-weight:900; font-size:20px; text-decoration:underline">नाम</p>
+      <p class="text-center" style="font-weight:900; font-size:8px; text-decoration:underline">नाम</p>
       <?php if(!empty($jama)) { $sum = 0; foreach($jama as $key=>$val){?>
         <div class="grid-container">
 
@@ -83,7 +83,7 @@
 </div>
 
 <div class="grid-child green">
-            <?php echo $val->account_name;?>
+            <?php echo $val->account_name;?><i  style="padding: 10px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
 </div>
 
 </div>
@@ -136,8 +136,34 @@
    newWin.print();
   // newWin.close();
 }
-   
-
+  
+function deleteSingle(a){
+    var txt;
+var r = confirm("Are you Sure !!!");
+if (r == true) {
+    deleteSinglevalue(a)
+} else {
+  txt = "Thank God";
+}
+}
+function deleteSinglevalue(a){
+    
+$.ajax({
+        url: "<?php echo base_url(); ?>admin/report/deleteMyEntry",
+        type: "POST",
+        dataType: 'json',
+        data:{'deleteEntry':a},
+        success: function (a) {
+            console.log(a)
+            if(a){ $('#search').click();}else{
+                alert("Not able to delete")
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+        });
+}
  </script>
 
  <style id="table_style" type="text/css">
