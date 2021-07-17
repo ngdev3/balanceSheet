@@ -52,7 +52,7 @@
     <div class="grid-child purple">
                 <?php $sums += $val->karch_amount; echo $val->karch_amount;?>
     </div>
-
+    
     <div class="grid-child green">
                 <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
     </div>
