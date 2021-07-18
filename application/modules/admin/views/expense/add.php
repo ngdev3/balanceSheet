@@ -145,7 +145,27 @@ input[type=submit] {
                                                    <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('purchaser_amount'); ?></div></label>
                                                 </div>
                                             </div>
-                                          
+                                            <div class="form-row">
+                                           
+                                           <div class="form-group col-md-6">
+                                                  <label for="inputState2">Quantity </label>
+                                                  <?php  $name = @$result->quantity;
+                                                  $postvalue = @$_POST['quantity'];
+//                                                    $val = !empty($postvalue)? $postvalue:$name;
+                                                  echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'quantity','maxlength'=>'25', 'class' => 'form-control', 'id' => 'quantity', 'placeholder' => 'Quantity', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                               ?>
+                                                 <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('quantity'); ?></div></label>
+                                              </div>
+                                              <div class="form-group col-md-6">
+                                                  <label for="inputState2">Bill No</label>
+                                                  <?php  $name = @$result->bill_no;
+                                                  $postvalue = @$_POST['bill_no'];
+//                                                    $val = !empty($postvalue)? $postvalue:$name;
+                                                  echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'bill_no','maxlength'=>'25', 'class' => 'form-control', 'id' => 'bill_no', 'placeholder' => 'Bill No', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                               ?>
+                                                 <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('bill_no'); ?></div></label>
+                                              </div>
+                                          </div>
                                             <div class="form-row">
                                            
                                            <div class="form-group col-md-6">

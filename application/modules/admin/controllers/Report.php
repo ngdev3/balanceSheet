@@ -284,8 +284,11 @@ class Report extends CI_Controller {
 			$data['deposit'] = $this->Report_mod->fetchtheFinalAmountdeposit($isFoundAccountDetail[1]);
 			$data['kisanvahi_Amount'] = $this->Report_mod->fetchtheFinalAmountKisanVahi($isFoundAccountDetail[1]);
 			$data['UTR_Amount'] = $this->Report_mod->getKisanVahiUTRAmount($isFoundAccountDetail[1]);
+			$data['getrokadtotalWeightdeposit'] = $this->Report_mod->getrokadtotalWeightdeposit($isFoundAccountDetail[1]);
+			$data['getrokadtotalWeightexpenses'] = $this->Report_mod->getrokadtotalWeightexpenses($isFoundAccountDetail[1]);
 			$data['Finaldeposit'] = '';
 			$data['Finalexpenses'] = '';
+			// pr($data);
 		//	pr($data['expenses']->expenses);
 			if($data['expenses']->expenses != '' && ($data['expenses']->expenses > $data['deposit']->deposit)){
 				$data['Finalexpenses']  = $data['expenses']->expenses - $data['deposit']->deposit;

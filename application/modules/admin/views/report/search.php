@@ -118,24 +118,14 @@ input[type=submit] {
                                            <table class="table">
   <thead>
     <tr style="text-align:center">
-      <th scope="col">Count</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">UTR Amount</th>
-      <th scope="col">UTR Quantity</th>
-      <th scope="col">UTR Count</th>
-      <th scope="col">Current नाम</th>
+      <th scope="col">जमा Quantity</th>
+      <th scope="col">नाम Quantity</th>
     </tr>
   </thead>
   <tbody style="text-align:center">
     <tr>
-      <th scope="row" id="mykisanvahicount"></th>
-      <th scope="row" id="mykisanvahiamount"></th>
-      <th scope="row" id="mykisanvahiquantity"></th>
-      <th scope="row" id="kisanvahiUTRNo"></th>
-      <th scope="row" id="kisanvahiUTRNoQuantity"></th>
-      <th scope="row" id="kisanvahiUTRNoCount"></th>
-      <th scope="row" id="kisanvahiUTRNaam"></th>
+      <th scope="row" id="getrokadtotalWeightdeposit"></th>
+      <th scope="row" id="getrokadtotalWeightexpenses"></th>
     </tr>
   </tbody>
 </table>
@@ -832,6 +822,8 @@ $('#search').click(()=>{
           $('#kisanvahiUTRNo').text(a.UTR_Amount.Amount);
           $('#kisanvahiUTRNoQuantity').text(a.UTR_Amount.Quantity);
           $('#kisanvahiUTRNoCount').text(a.UTR_Amount.Count);
+          $('#getrokadtotalWeightdeposit').text(a.getrokadtotalWeightdeposit.quant);
+          $('#getrokadtotalWeightexpenses').text(a.getrokadtotalWeightexpenses.quant);
         },
         error: function () {
             alert("Error");

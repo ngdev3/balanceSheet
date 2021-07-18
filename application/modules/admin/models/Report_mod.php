@@ -1492,5 +1492,36 @@ function deleteMyParcha($id){
     }
 }
 
+function getrokadtotalWeightdeposit($id){
+    $this->db->select('sum(quantity) as quant');
+    $this->db->where('FY', fy()->FY);
+    $this->db->where('type_of_account', 'deposit');
+    $this->db->where('product_type', fy()->product_type);
+    $this->db->where('account_no', $id);
+    $query = $this->db->get('aa_rokad');
+    $res = $query->result();
+   return  $query->row();
+
+}
+function getrokadtotalWeightexpenses($id){
+    $this->db->select('sum(quantity) as quant');
+    $this->db->where('FY', fy()->FY);
+    $this->db->where('type_of_account', 'expenses');
+    $this->db->where('product_type', fy()->product_type);
+    $this->db->where('account_no', $id);
+    $query = $this->db->get('aa_rokad');
+    $res = $query->result();
+   return $query->row();
+   
+}
+
+function insertMyWeight($rokad_id, $quant){
+    $updateData			=	array(
+        'bill_no' => '',
+        'quantity'  =>  $quant,
+         );
+        $this->db->where('rokad_id', $rokad_id);	
+        $this->db->update('aa_rokad',$updateData);
+}
 
 }

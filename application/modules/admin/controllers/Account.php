@@ -89,6 +89,8 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('account_name', 'Account name', 'trim|required');
 			$this->form_validation->set_rules('type_of_account', 'account_type', 'trim|required');
 
+			$this->form_validation->set_rules('bill_no', 'Bill no', 'trim');
+			$this->form_validation->set_rules('quantity', 'Quantity', 'trim');
 			$this->form_validation->set_rules('remark', 'Remark', 'trim');
 			
             $this->form_validation->set_rules('karch_amount', 'Final Amount', 'trim|required');
@@ -105,7 +107,7 @@ class Account extends CI_Controller {
 				$new_date = date('Y-m-d', $middle);
 				$isFoundAccountDetail = explode('_',$_POST['account_name']);
 				if(count($isFoundAccountDetail) == 1){
-					pr('not found');
+					// pr('not found');
 					$userdata = array(
 						'name' =>$_POST['account_name'],
 						'added_by' => $this->session->userdata('userinfo')->id,
@@ -114,6 +116,8 @@ class Account extends CI_Controller {
 					$lastid = $this->Account_mod->add_account($userdata);
 					$userdata = array(
 						'rokad_date' =>$new_date,
+							'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
 						'type_of_account' => $_POST['type_of_account'],
@@ -130,6 +134,8 @@ class Account extends CI_Controller {
 				}else{
 					$userdata = array(
 						'rokad_date' =>$new_date,
+						'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no	' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
 						'type_of_account' => $_POST['type_of_account'],
@@ -168,6 +174,8 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('account_name', 'Account name', 'trim|required');
 			$this->form_validation->set_rules('type_of_account', 'account_type', 'trim|required');
 			$this->form_validation->set_rules('remark', 'Remark', 'trim');
+			$this->form_validation->set_rules('bill_no', 'Bill no', 'trim');
+			$this->form_validation->set_rules('quantity', 'Quantity', 'trim');
             $this->form_validation->set_rules('karch_amount', 'Final Amount', 'trim|required');
 			$this->form_validation->set_rules('status', 'Status', 'trim|required');
 
@@ -189,6 +197,8 @@ class Account extends CI_Controller {
 					$lastid = $this->Account_mod->add_account($userdata);
 					$userdata = array(
 						'rokad_date' =>$new_date,
+						'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
 						'type_of_account' => $_POST['type_of_account'],
@@ -205,6 +215,8 @@ class Account extends CI_Controller {
 				}else{
 					$userdata = array(
 						'rokad_date' =>$new_date,
+						'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no	' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
 						'type_of_account' => $_POST['type_of_account'],
