@@ -340,7 +340,7 @@ class Billing extends CI_Controller {
 		
 		$quantity = $_POST['quantity'];
 		$range_of_amount = $_POST['amount'];
-		$todays_rate = round($range_of_amount / $quantity, 2);
+		$todays_rate = round($range_of_amount / $quantity, 4);
 		$loop_range = ($range_of_amount / 50000);
 		$merge_amount = 0;
 		$finalArr = [];
@@ -352,7 +352,7 @@ class Billing extends CI_Controller {
 			# code...
 			$gen = rand(35000, 49999);
 			$merge_amount += $gen;
-			$finalArr[] = array('amount'=>$gen,'quant'=>number_format($gen/$todays_rate,2));	
+			$finalArr[] = array('amount'=>$gen,'quant'=>round($gen/$todays_rate,4));	
 		}
 
 		if(($range_of_amount - $merge_amount) < 0){
@@ -361,7 +361,7 @@ class Billing extends CI_Controller {
 
 		}else {
 			$gen = $range_of_amount - $merge_amount;
-			array_push($finalArr,array('amount'=>$gen,'quant'=>round($gen/$todays_rate,2)));
+			array_push($finalArr,array('amount'=>$gen,'quant'=>round($gen/$todays_rate,4)));
 		}
 
 		// pr($Total);
@@ -391,6 +391,11 @@ class Billing extends CI_Controller {
 					
 					$data['amount_sum'] = array_sum($vatAmount);
 					$data['quant_sum'] = array_sum($quant);
+					$quantity = $_POST['quantity'];
+					$range_of_amount = $_POST['amount'];
+					$todays_rate = round($range_of_amount / $quantity, 4);
+
+					$data['todays_rate'] = $todays_rate;
 				}   
 				// pr($this->gen_inovice_val());
 				// die;

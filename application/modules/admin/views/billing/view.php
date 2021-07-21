@@ -86,8 +86,9 @@
                                                             <tr>
                                                                 <th class="table_bg" scope="col">Serial No</th>
                                                 <th class="table_bg" scope="col">Billing Date</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Quantity</th>
+                                                <th class="table_bg" scope="col">Amount</th>
+                                                <th class="table_bg" scope="col">Rate</th>
+                                                <th class="table_bg" scope="col">Quantity</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -96,6 +97,7 @@
                                             <tr>
                                                 <td><?php echo $num+1;?></td>
                                                <td  class="table_bg" scope="row"><?php echo $_POST['date_of_bill']; ?></td>
+                                               <td><?php echo $todays_rate;?></td>
                                                <td><?php echo $values['amount'];?></td>
                                                <td><?php echo $values['quant'];?></td>
                                             </tr>
@@ -103,6 +105,7 @@
                                             <?php }}?>
                                             <?php if(!empty($amount_sum)){ ?>
                                             <tr>
+                                                <th  class="table_bg" scope="row"><?php echo ''; ?></th>
                                                 <th  class="table_bg" scope="row"><?php echo ''; ?></th>
                                                 <th  class="table_bg" scope="row"><?php echo 'Total'; ?></th>
                                                <th> <?php echo $amount_sum;?></th>
@@ -128,16 +131,6 @@
         
         });
   } );
-
-
-  
-  $(document).ready(function() {
-    $('#printTable').DataTable(
-      {
-        "order": [[ 4, "desc" ]]
-    }
-    );
-} );
 
 
   function printData()
