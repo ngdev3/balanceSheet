@@ -45,6 +45,7 @@ if(!empty($_SESSION['user_type'])){
 	<li class="nav-item dropdown <?php if($uri1 == 'admin' && $uri2 == 'billing'){echo 'open';} ?>">
 		<a class="dropdown-toggle" href="javascript:void(0);"><span class="icon-holder"><i class="c-red-500 ti-files"></i> </span><span class="title">बाजार खरीद</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
 		<ul class="dropdown-menu">
+		<li><a class="sidebar-link <?php if($uri1 == 'admin' && $uri2 == 'billing'&& $uri3 == 'invoice'){echo 'btn_active';} ?>" href="<?= base_url('admin/billing/invoice')?>">इनवॉइस</a></li>
 		<li><a class="sidebar-link <?php if($uri1 == 'admin' && $uri2 == 'billing'&& $uri3 == 'add'){echo 'btn_active';} ?>" href="<?= base_url('admin/billing/add')?>">बाजार खरीद पर्चा</a></li>
 		<!-- <li><a class="sidebar-link <?php if($uri1 == 'admin' && $uri2 == 'billing'&& $uri3 == 'listing'){echo 'btn_active';} ?>" href="<?= base_url('admin/billing/listing')?>">List Billing</a></li> -->
 		
