@@ -378,7 +378,7 @@ class Billing extends CI_Controller {
 			$this->form_validation->set_rules('billing_date', 'Billing Date', 'trim|required');
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required');
-			$this->form_validation->set_rules('rate', 'Rate', 'trim|required');
+			$this->form_validation->set_rules('rate', 'Rate', 'trim');
 			
             if ($this->form_validation->run() == FALSE) {
 				$data['finalarr'] = $this->gen_inovice_val();
