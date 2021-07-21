@@ -7,7 +7,7 @@
     }
     table
     {
-        border: 1px solid #ccc;
+        border: 4px solid #ccc;
         border-collapse: collapse;
     }
     table th
@@ -18,7 +18,7 @@
     }
     table th, table td
     {
-        padding: 5px;
+        padding: 10px;
         border: 1px solid #ccc;
     }
 </style>
@@ -79,7 +79,7 @@
                                                     <!-- <a href="<?=base_url()?>admin/campaign" id="back-btn" class="btn cur-p btn-primary pull-right">Back</a> -->
                                                     
                                                     <!--<h4 class="c-grey-900 mB-20">Simple Table</h4>-->
-                                                    <table class="table" id="printTable">
+                                                    <table class="table" id="printTable" border="1" cellpadding="3">
                                 <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
 
                                                         <thead>
