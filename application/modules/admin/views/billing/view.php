@@ -79,15 +79,15 @@
                                                     <!-- <a href="<?=base_url()?>admin/campaign" id="back-btn" class="btn cur-p btn-primary pull-right">Back</a> -->
                                                     
                                                     <!--<h4 class="c-grey-900 mB-20">Simple Table</h4>-->
-                                                    <table class="table" id="printTable" border="1" cellpadding="3">
+                                                    <table class="table" id="printTable" border="2" cellpadding="5">
                                 <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
 
                                                         <thead>
                                                             <tr>
                                                                 <th class="table_bg" scope="col">Serial No</th>
                                                 <th class="table_bg" scope="col">Billing Date</th>
-                                                <th class="table_bg" scope="col">Amount</th>
                                                 <th class="table_bg" scope="col">Rate</th>
+                                                <th class="table_bg" scope="col">Amount</th>
                                                 <th class="table_bg" scope="col">Quantity</th>
                                             </tr>
                                         </thead>
