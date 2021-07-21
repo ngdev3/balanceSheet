@@ -91,7 +91,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if($finalarr !== 'Try Again'){ ?>
+                                            <?php if(!empty($finalarr)){ ?>
                                            <?php foreach($finalarr as $num=>$values) { ?>
                                             <tr>
                                                 <td><?php echo $num+1;?></td>

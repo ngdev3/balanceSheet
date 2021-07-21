@@ -356,7 +356,7 @@ class Billing extends CI_Controller {
 		}
 
 		if(($range_of_amount - $merge_amount) < 0){
-			return "Try Again";
+			return "";
 			// $this->gen_inovice_val();
 
 		}else {
