@@ -391,13 +391,13 @@ class Billing extends CI_Controller {
 					
 					$data['amount_sum'] = array_sum($vatAmount);
 					$data['quant_sum'] = array_sum($quant);
-				}
+				}   
 				// pr($this->gen_inovice_val());
 				// die;
             } 
 		}
 		// pr($data);
-		$data['page'] = 'billing/View';
+		$data['page'] = 'billing/view';
 		$data['title'] = "Track (The Rest Accounting Key) || View";
 		// die;
         $this->load->view('layout', $data);
