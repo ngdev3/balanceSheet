@@ -101,12 +101,14 @@
                                             </tr>
                                             
                                             <?php }}?>
+                                            <?php if(!empty($amount_sum)){ ?>
                                             <tr>
                                                 <th  class="table_bg" scope="row"><?php echo ''; ?></th>
                                                 <th  class="table_bg" scope="row"><?php echo 'Total'; ?></th>
                                                <th> <?php echo $amount_sum;?></th>
                                                <th><?php echo $quant_sum;?></th>
                                             </tr>
+                                            <?php }?>
                                         </tbody>
                                     </table>
                                     <button type="button" class="btn btn-primary"> Store To DB </button>
