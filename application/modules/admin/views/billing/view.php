@@ -91,7 +91,7 @@
                                                 <th class="table_bg" scope="col">Quantity</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody>    
                                             <?php if(!empty($finalarr)){ ?>
                                            <?php foreach($finalarr as $num=>$values) { ?>
                                             <tr>
