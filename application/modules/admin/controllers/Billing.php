@@ -354,10 +354,9 @@ class Billing extends CI_Controller {
 			$merge_amount += $gen;
 			$finalArr[] = array('amount'=>$gen,'quant'=>round($gen/$todays_rate,4));	
 		}
-
+		// pr($finalArr);
 		if(($range_of_amount - $merge_amount) < 0){
-			return "";
-			// $this->gen_inovice_val();
+			return  $this->gen_inovice_val();
 
 		}else {
 			$gen = $range_of_amount - $merge_amount;
@@ -382,7 +381,7 @@ class Billing extends CI_Controller {
 			
             if ($this->form_validation->run() == FALSE) {
 				$data['finalarr'] = $this->gen_inovice_val();
-				
+				// pr($data); die;
 				if($data['finalarr'] !== 'Try Again'){
 					foreach($data['finalarr'] as $num => $values) {
 						$vatAmount[] = $values[ 'amount' ];
