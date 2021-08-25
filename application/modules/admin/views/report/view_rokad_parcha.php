@@ -26,7 +26,7 @@
                                            </div> 
                                            </div> 
                                            </form>
-                                           <?php if(!empty($jama)){?>
+                                           <?php if(!empty($jama) || !empty($naam)){?>
                         <div class="container" id="printTable" style="text-align: center; border: 4px solid black;">
                                               <div style="text-align:center;"><img width="50" height="50" src="https://i.pinimg.com/originals/df/7a/c3/df7ac32ca67a39a812bbe7b7b69f1a28.jpg" alt="" srcset=""></div>
                             <div class="col-md-12">
@@ -54,7 +54,7 @@
     </div>
     
     <div class="grid-child green">
-                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; echo ",".$val->account_name; ?>)'></i>
+                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
     </div>
    
     </div>

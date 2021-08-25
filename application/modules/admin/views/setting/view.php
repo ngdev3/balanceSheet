@@ -82,7 +82,7 @@ input[type=submit] {
                                  <?= "|| ".ucfirst(@fy()->FY)?>
                               </span>
                               <span class="fsz-sm c-grey-900" style="color:blue">
-                                 <?php if(@fy()->product_type == '1') { echo " || C R Industries ||"; } ?>
+                                 <?php if(@fy()->product_type == '1') { echo " || C R Industries"; } ?>
                                  <?php if(@fy()->product_type == '2') { echo "|| Sarla Gupta And Company"; } ?>
                               </span>
                              
