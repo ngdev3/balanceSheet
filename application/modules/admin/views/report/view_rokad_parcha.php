@@ -54,7 +54,7 @@
     </div>
     
     <div class="grid-child green">
-                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
+                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; echo ",".$val->account_name; ?>)'></i>
     </div>
    
     </div>
@@ -137,8 +137,9 @@
   // newWin.close();
 }
   
-function deleteSingle(a){
+function deleteSingle(a,b){
     var txt;
+    console.log(a,b)
 var r = confirm("Are you Sure !!!");
 if (r == true) {
     deleteSinglevalue(a)
