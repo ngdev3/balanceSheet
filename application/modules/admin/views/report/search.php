@@ -485,6 +485,7 @@ function myFunction_expenses() {
   <th>Sno</th>
                             <th>Rokadh Date</th>
                             <th>Name</th>
+                            <th>Quantity</th>
                             <th>Rokadh ID</th>
                             <th>Amount</th>
                            
@@ -503,6 +504,7 @@ function myFunction_expenses() {
                     <td>`+(i+1)+`</td>
                     <td>`+a[i].rokad_date+`</td>
                     <td>`+a[i].account_name+`</td>
+                    <td>`+a[i].quantity+`</td>
                     <td>`+a[i].rokad_id+`</td>
                     <td>`+a[i].karch_amount+`</td>
                     </tr>
