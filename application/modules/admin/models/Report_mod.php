@@ -1124,7 +1124,7 @@ class Report_mod extends CI_Model {
         }else{
             $defaultDate =  $new_date = date('Y-m-d');
         }
-        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'deposit' AND ar.rokad_date = '".$defaultDate."'");
+        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'deposit' AND FY = '".(fy()->FY)."' AND product_type = '".fy()->product_type."' AND ar.rokad_date = '".$defaultDate."'");
 		// print_r($this->db->last_query());    
         // pr($defaultDate); die;
 
@@ -1144,7 +1144,7 @@ class Report_mod extends CI_Model {
         }else{
             $defaultDate =  $new_date = date('Y-m-d');
         }
-        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'expenses' AND ar.rokad_date = '".$defaultDate."';");
+        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'expenses' AND FY = '".(fy()->FY)."' AND product_type = '".fy()->product_type."' AND ar.rokad_date = '".$defaultDate."';");
 		
     //    pr($querys->result()); die;    
         if ($querys->num_rows() > 0) {
