@@ -427,7 +427,7 @@ function myFunction_deposit() {
   $('#DepositoverLapData').append(`
                             <th>Sno</th>
                             <th>Rokadh Date</th>
-                            <th>Name</th>
+                            <th>Remark</th>
                             <th>Quantity</th>
                             <th>Rokadh ID</th>
                             <th>Amount</th>
@@ -444,7 +444,7 @@ function myFunction_deposit() {
                     <tr>
                     <td>`+(i+1)+`</td>
                     <td>`+a[i].rokad_date+`</td>
-                    <td>`+a[i].account_name+`</td>
+                    <td>`+a[i].remark+`</td>
                     <td>`+a[i].quantity+`</td>
                     <td>`+a[i].rokad_id+`</td>
                     <td>`+a[i].karch_amount+`</td>
@@ -484,7 +484,7 @@ function myFunction_expenses() {
   $('#ExpensesoverLapData').append(`
   <th>Sno</th>
                             <th>Rokadh Date</th>
-                            <th>Name</th>
+                            <th>Remark</th>
                             <th>Quantity</th>
                             <th>Rokadh ID</th>
                             <th>Amount</th>
@@ -503,7 +503,7 @@ function myFunction_expenses() {
                     <tr>
                     <td>`+(i+1)+`</td>
                     <td>`+a[i].rokad_date+`</td>
-                    <td>`+a[i].account_name+`</td>
+                    <td>`+a[i].remark+`</td>
                     <td>`+a[i].quantity+`</td>
                     <td>`+a[i].rokad_id+`</td>
                     <td>`+a[i].karch_amount+`</td>
