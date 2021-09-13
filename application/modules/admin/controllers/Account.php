@@ -128,6 +128,7 @@ class Account extends CI_Controller {
 						'status' => $_POST['status'],
 						'account_no' =>$lastid,					
 						'FY' =>fy()->FY,	
+						'template_id' =>fy()->template_id,
 						'product_type' =>fy()->product_type,					
 
 					);
@@ -145,7 +146,8 @@ class Account extends CI_Controller {
 						'added_by' => $this->session->userdata('userinfo')->id,
 						'status' => $_POST['status'],
 						'account_no'=>$isFoundAccountDetail[1],
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,					
 
 
@@ -209,7 +211,8 @@ class Account extends CI_Controller {
 						'added_by' => $this->session->userdata('userinfo')->id,
 						'status' => $_POST['status'],
 						'account_no' =>$lastid,				
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,						
 					);
 				}else{
@@ -228,6 +231,7 @@ class Account extends CI_Controller {
 						'status' => $_POST['status'],
 						'account_no'=>$isFoundAccountDetail[1],
 						'FY' =>fy()->FY,	
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,					
 					);
 				}

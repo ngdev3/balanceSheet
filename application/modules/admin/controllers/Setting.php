@@ -324,13 +324,15 @@ class Setting extends CI_Controller {
 	public function change_fy($id =null){
 		
 		if (isPostBack()) {
-			//pr($_POST);
+			// pr($_POST);
 			//die;
 			$userdata = array(
-				'template_id' =>$_POST['template_fy'],
-				'status' =>'Active',
+				'default_firm' =>$_POST['template_fy'],
 			);
 			$data['fy']= $this->Setting_mod->add_fy($userdata);
+			validate_admin_login();
+			// pr($this->session->all_userdata('userinfo'));
+			// die;
 			set_flashdata('success', 'Financial Year Loaded Successfully');
 		}
         $data['page'] = 'setting/view';

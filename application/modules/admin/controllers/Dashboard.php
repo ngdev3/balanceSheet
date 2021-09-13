@@ -194,6 +194,7 @@ class Dashboard extends MY_Controller {
                  );
                 $this->db->where('Farmer_ID', $data[$j][1]);
                 $this->db->where('FY', fy()->FY);
+                $this->db->where('template_id', fy()->template_id);
                 $this->db->where('CenterName', $_POST['centerType']);
                 $this->db->where('product_type', fy()->product_type);	
                 $this->db->update('kisanvahidata',$updateData);
@@ -272,6 +273,7 @@ class Dashboard extends MY_Controller {
                     $this->db->where('Farmer_ID', $data[$j][4]);
                     $this->db->where('Quantity', floatval($data[$j][7] + $data[$j][8]));
                     $this->db->where('FY', fy()->FY);
+                    $this->db->where('template_id', fy()->template_id);
                     $this->db->where('CenterName', $_POST['centerType']);
                     $this->db->where('product_type', fy()->product_type);	
                     $this->db->update('kisanvahidata',$updateData);

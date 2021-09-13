@@ -141,7 +141,8 @@ class Billing extends CI_Controller {
 						'status' => $_POST['status'],
 						'billing_type' =>  $_POST['payment_type'],
 						'purchaser_account_no' =>$lastid,					
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,	
 											
 					);
@@ -160,7 +161,8 @@ class Billing extends CI_Controller {
 						'status' => $_POST['status'],
 						'billing_type' =>  $_POST['payment_type'],	
 						'purchaser_account_no'=>$isFoundAccountDetail[1],					
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,					
 					);
 				}

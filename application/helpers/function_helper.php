@@ -100,9 +100,26 @@ if (!function_exists('is_userprotected')) {
 if (!function_exists('validate_admin_login')) {
 
     function validate_admin_login() {
-        $CI = &get_instance();		
+        $CI = &get_instance();	
+        
+
         $CI->db->select("*");
-        $CI->db->where('status', 'Active');
+        $CI->db->where('id', $CI->session->userdata('userinfo')->id);
+        $query = $CI->db->get('users');
+        $rs_data = $query->row();
+
+        
+        $CI->session->set_userdata("userinfo",$rs_data);   
+        $CI->session->set_userdata("isLogin",'yes'); 
+        $CI->session->set_userdata("user_type",$rs_data->user_type); 
+        
+        
+        // pr($rs_data);
+        // pr($CI->session->all_userdata());
+        //  die;
+        
+        $CI->db->select("*");
+        $CI->db->where('template_id', $CI->session->userdata('userinfo')->default_firm);
         $query = $CI->db->get('aa_template');
         if ($query->num_rows()) {
             $res = $query->row();
