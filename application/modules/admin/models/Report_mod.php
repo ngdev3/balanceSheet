@@ -1412,7 +1412,7 @@ function publisher_mapping_deatils($id){
         $this->db->where('account_no', $id);
         $query = $this->db->get('aa_rokad');
         return $query->row();
-    }
+    }    
     function fetchtheFinalAmountKisanVahi($id){
         $this->db->select('SUM(Ammount) as Amount, SUM(Quantity) as Quantity');
         $this->db->where('FY', fy()->FY);
