@@ -101,7 +101,14 @@ if (!function_exists('validate_admin_login')) {
 
     function validate_admin_login() {
         $CI = &get_instance();	
-        
+    	if ($CI->session->userdata('isLogin') == 'yes') { 
+            if($CI->session->userdata('user_type')==1){	
+           //     redirect('/admin/dashboard','refresh');	
+                                    }  			
+                }else{
+                redirect('admin/auth');
+            }
+
 
         $CI->db->select("*");
         $CI->db->where('id', $CI->session->userdata('userinfo')->id);
@@ -124,13 +131,6 @@ if (!function_exists('validate_admin_login')) {
         if ($query->num_rows()) {
             $res = $query->row();
             $CI->session->set_userdata('fy', $res);
-        }
-		if ($CI->session->userdata('isLogin') == 'yes') { 
-					if($CI->session->userdata('user_type')==1){	
-                   //     redirect('/admin/dashboard','refresh');	
-					}  			
-		}else{
-           redirect('admin/auth');
         }
 		
     }
