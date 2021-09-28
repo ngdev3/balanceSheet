@@ -1540,4 +1540,113 @@ function insertMyWeight($rokad_id, $quant){
         $this->db->update('aa_rokad',$updateData);
 }
 
+function Billing_check(){
+    // pr(fy()); 
+    // $yr = explode("-",fy()->FY);
+    // pr($yr);
+    // if(fy()->track_name == 'FY_2020_2021_1'){
+    //     $start = strtotime('2020-10-07');
+    //     $end = strtotime('2021-03-31');
+    // }else{
+        
+    // }
+
+    if(fy()->template_id !== '1'){
+        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2020-2021 C R Industries Allowed) </h1> <br>";
+        return false;
+    }
+    $start = strtotime('2020-10-07');
+    $end = strtotime('2021-03-31');
+    echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
+   // die;
+while($start <= $end){
+    $dor =  date('Y-m-d', $start);
+    $this->db->select('SUM(karch_amount) AS exp');
+    $this->db->where('rokad_date',$dor);
+    $this->db->where('type_of_account','expenses');
+    $this->db->where('template_id', fy()->template_id);
+    $this->db->where('FY', fy()->FY);
+    $this->db->where('product_type', fy()->product_type);
+    $query_exp = $this->db->get('aa_rokad');
+
+    $this->db->select('SUM(karch_amount) AS dep');
+    $this->db->where('rokad_date',$dor);
+    $this->db->where('type_of_account','deposit');
+     $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+    $query_dep = $this->db->get('aa_rokad');
+
+    // $resp = $this->db->from('aa_rokad');
+   // pr( $query_exp->ROW());
+    //pr( $query_dep->ROW());
+    $act  = $query_dep->ROW()->dep - $query_exp->ROW()->exp;
+    echo "<br> Date:- ". ($dor) ."<br><b> Shree Rokadh Bakee : ". $act."</b><br>";
+    $start = strtotime("1 day", $start);
+    $dor =  date('Y-m-d', $start);
+
+  //  echo "<br>".$dor;
+
+        $this->db->select('*');
+        $this->db->where('rokad_date',$dor);
+        $this->db->where('account_no','294');
+        $this->db->where('type_of_account','deposit');
+        $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+        $query_row_found = $this->db->get('aa_rokad');
+        if( $query_row_found->num_rows() > 0){
+
+            $updateData			=	array(
+                'karch_amount'  =>  $act,
+            );
+        $this->db->where('rokad_date',$dor);
+        $this->db->where('account_no','294');
+        $this->db->where('type_of_account','deposit');
+        $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);	
+        $this->db->update('aa_rokad',$updateData);
+        echo 'Client details updated successfully<br>';
+
+        } else {
+
+            $updateData			=	array(
+                'karch_amount'  =>  $act,
+                'FY'  =>  fy()->FY,
+                'product_type'  =>  fy()->product_type,
+                'template_id'  =>   fy()->template_id,
+                'rokad_date'  =>  $dor,
+                'account_no'  =>  '294',
+                'rokad_type'  =>  'kisanVahi',
+                'type_of_account'  =>  'deposit',
+                'account_name'  =>  'SHREE ROKADH BAKEE_294',
+                'added_by' => $this->session->userdata('userinfo')->id,
+            );
+            $this->db->insert("aa_rokad", $updateData);
+            echo 'Client details Inserted successfully<br>';
+
+        }
+
+    // $updateData			=	array(
+    //     'karch_amount'  =>  $act,
+    //      );
+    //     $this->db->where('rokad_date',$dor);
+    //     $this->db->where('account_no','294');
+    //     $this->db->where('type_of_account','deposit');
+    //     $this->db->where('template_id', fy()->template_id);
+    //     $this->db->where('FY', fy()->FY);
+    //     $this->db->where('product_type', fy()->product_type);	
+    //     $this->db->update('aa_rokad',$updateData);
+
+    //     $affected = $this->db->affected_rows();
+    //     if($affected>= 0){
+    //        echo 'Client details updated successfully<br>';
+    //     } else {
+    //        echo 'Client details not updated successfully<br>';
+    //     }
+
+
+    }
+}
 }

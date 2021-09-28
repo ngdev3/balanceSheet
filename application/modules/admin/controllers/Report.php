@@ -512,6 +512,11 @@ class Report extends CI_Controller {
 		}
 	}
 	
+	public function checkBalance(){
+		if(isPostBack()){
+		}
+		$this->Report_mod->Billing_check();
+	}
 	
 
 }
