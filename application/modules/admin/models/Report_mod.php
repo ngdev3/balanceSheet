@@ -1555,7 +1555,7 @@ function Billing_check(){
         echo "<h1>Selected Wrong Firm Finanical Year ( Only 2020-2021 C R Industries Allowed) </h1> <br>";
         return false;
     }
-    $start = strtotime('2020-10-07');
+    $start = strtotime('2020-06-07');
     $end = strtotime('2021-03-31');
     echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
    // die;
