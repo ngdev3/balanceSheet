@@ -101,15 +101,15 @@ class Dashboard extends MY_Controller {
         $data['FinalAmountPaddy']   = $this->Auth_mod->RealTimeDataCount()['FinalAmountPaddy'];
         $data['TotalKatti']   = $this->Auth_mod->RealTimeDataCount()['TotalKatti'];
         $data['maxpurchaser']   = $this->Auth_mod->RealTimeDataCount()['maxpurchaser'];
-        $data['RealTimeDataCount']   = $this->Auth_mod->RealTimeDataCount();
-        $totallength = ($data['RealTimeDataCount']['first']);
+        // $data['RealTimeDataCount']   = $this->Auth_mod->RealTimeDataCount();
+        // $totallength = ($data['RealTimeDataCount']['first']);
         
-        $x = 0;
-        for($i=0;$i<count($totallength);$i++){
-          $x += (($data['RealTimeDataCount']['first'])[$i]->totalQuant);
-        }
+        // $x = 0;
+        // for($i=0;$i<count($totallength);$i++){
+        //   $x += (($data['RealTimeDataCount']['first'])[$i]->totalQuant);
+        // }
 
-        $data['totalrealtimeCenterSum'] = $x;
+        $data['totalrealtimeCenterSum'] = '';
        $data['ActiveParcha']   = $this->Auth_mod->RealTimeActiveParcha();
        $data['todays_KisanVahi']   = $this->Auth_mod->todays_KisanVahi();
        $data['total_runningcampaigns']   = 50;
