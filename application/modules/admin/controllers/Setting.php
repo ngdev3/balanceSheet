@@ -1,4 +1,4 @@
-<?php
+000000000<?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -324,15 +324,13 @@ class Setting extends CI_Controller {
 	public function change_fy($id =null){
 		
 		if (isPostBack()) {
-			// pr($_POST);
+			//pr($_POST);
 			//die;
 			$userdata = array(
-				'default_firm' =>$_POST['template_fy'],
+				'template_id' =>$_POST['template_fy'],
+				'status' =>'Active',
 			);
 			$data['fy']= $this->Setting_mod->add_fy($userdata);
-			validate_admin_login();
-			// pr($this->session->all_userdata('userinfo'));
-			// die;
 			set_flashdata('success', 'Financial Year Loaded Successfully');
 		}
         $data['page'] = 'setting/view';

@@ -81,13 +81,16 @@ input[type=submit] {
                                     <div class="form-group col-md-2">
                                               <select id="center_type" class="form-control" name="rokad_type">
                                                       <option value="" selected >Select Center</option>
-                                                      <option value="1" >शाहाबाद मंडी प्रथम</option>
+                                                      <?php if(!empty($center_list)){ foreach($center_list as $x => $y){?>
+                                                        <option value="<?php echo $y->center_id; ?>" ><?php echo $y->name; ?></option>
+                                                        <?php }};?>
+                                                        <!-- <optio n value="1" >शाहाबाद मंडी प्रथम</option>
                                                        <option value="2" >शाहाबाद मंडी द्विती</option>
                                                        <option value="3" >FCS जमुरा-टोडरपुर</option>
                                                        <option value="pcf" >PCF शाहाबाद - शाहाबाद नगर पा. प.</option>
                                                        <option value="reva" >रेवमुरादपुर</option>
                                                        <option value="upss" >यूपीएसएस ( UPSS )</option>
-                                                       <option value="todarpur_hardoi" >हरदोई टोडरपुर</option>
+                                                       <option value="todarpur_hardoi" >हरदोई टोडरपुर</option> -->
                                                 </select>                                         
                                            <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('rokad_type'); ?></div></label>
                                            </div> 
@@ -125,13 +128,16 @@ input[type=submit] {
                                                <label for="inputState2">Center Type *</label>
                                                <select id="center_type" class="form-control nill" name="center_type">
                                                       <option value="" selected >Select Center</option>
-                                                      <option value="1" >शाहाबाद मंडी प्रथम</option>
+                                                      <?php if(!empty($center_list)){ foreach($center_list as $x => $y){?>
+                                                        <option value="<?php echo $y->center_id; ?>" ><?php echo $y->name."_".$y->center_id; ?></option>
+                                                        <?php }};?>
+                                                      <!-- <option value="1" >शाहाबाद मंडी प्रथम</option>
                                                        <option value="2" >शाहाबाद मंडी द्विती</option>
                                                        <option value="3" >FCS जमुरा-टोडरपुर</option>
                                                        <option value="pcf" >PCF शाहाबाद - शाहाबाद नगर पा. प.</option>
                                                        <option value="reva" >रेवमुरादपुर</option>
                                                        <option value="upss" >यूपीएसएस ( UPSS )</option>
-                                                       <option value="todarpur_hardoi" >हरदोई टोडरपुर</option>
+                                                       <option value="todarpur_hardoi" >हरदोई टोडरपुर</option> -->
                                                   </select>                                         
                                            <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('center_type'); ?></div></label>
                                            </div> 
@@ -274,7 +280,7 @@ input[type=submit] {
                       $('input[name=utr_no]').val('PENDING')
                       
                       $('input[name=quantity]').change(()=>{
-                        $('input[name=amount]').val(parseFloat( $('input[name=quantity]').val() * 1975));
+                        $('input[name=amount]').val(parseFloat( $('input[name=quantity]').val() * 1940));
                       })
            $('#fetch_button').click(()=>{
             var farmer_id = $('input[name=farmer_id]').val()

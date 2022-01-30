@@ -28,7 +28,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if(!empty($users)){foreach($users as $key => $user){?>
+                                            <?php if(!empty($users)){ foreach($users as $key => $user){?>
                                             <tr style="text-align: center; font-size:large ;font-weight:600;">
                                                 <td><?php echo $key+1;?></td>
                                                 <td><?php echo $user->account_no;?></td>

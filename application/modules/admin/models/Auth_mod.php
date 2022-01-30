@@ -205,47 +205,41 @@ class Auth_mod extends CI_Model {
 
             $this->db->select('SUM(total_weight) as FinalWeight');
             $this->db->where('FY', fy()->FY);
-            $this->db->where('template_id', fy()->template_id);
-
             $this->db->where('product_type', fy()->product_type);
             $this->db->from('aa_billing');
             $billing = $this->db->get();
             
             $this->db->select('SUM(final_amount) as FinalAmountPaddy');
             $this->db->where('FY', fy()->FY);
-            $this->db->where('template_id', fy()->template_id);
             $this->db->where('product_type', fy()->product_type);
             $this->db->from('aa_billing');
             $FinalAmountPaddy = $this->db->get();
             
             $this->db->select('SUM(total_katti) as TotalKatti');
             $this->db->where('FY', fy()->FY);
-            $this->db->where('template_id', fy()->template_id);
             $this->db->where('product_type', fy()->product_type);
             $this->db->from('aa_billing');
             $TotalKatti = $this->db->get();
 
             $this->db->select('MAX(final_amount) as maxpurchaser');
             $this->db->where('FY', fy()->FY);
-            $this->db->where('template_id', fy()->template_id);
             $this->db->where('product_type', fy()->product_type);
             $this->db->from('aa_billing');
             $maxpurchaser = $this->db->get();
 
-            $TotalQuant = $this->db->query("SELECT ROUND(SUM(Quantity),2) AS totalQuant FROM kisanvahidata WHERE status_rec = 'done'  AND FY = '".fy()->FY."' AND '".fy()->template_id."' AND product_type = '". fy()->product_type ."' GROUP by CenterName");
+            $TotalQuant = $this->db->query("SELECT acn.name , ROUND(SUM(Quantity),2) AS totalQuant FROM kisanvahidata  LEFT JOIN aa_center_name as acn ON kisanvahidata.CenterName = acn.center_id  WHERE status_rec = 'done'  AND FY = '".fy()->FY."' AND product_type = '". fy()->product_type ."' GROUP by CenterName");
             if(!empty($TotalQuant)){
             $data_count['billing'] = $billing->result()[0];
             $data_count['FinalAmountPaddy'] = $FinalAmountPaddy->result()[0];
             $data_count['TotalKatti'] = $TotalKatti->result()[0];
             $data_count['maxpurchaser'] = $maxpurchaser->result()[0];
 
-            if(!empty($TotalQuant->result()[0])){$data_count['first'] = $TotalQuant->result()[0];}else{$data_count['first'] = 0;}
-            if(!empty($TotalQuant->result()[1])){$data_count['second'] = $TotalQuant->result()[1];}else{$data_count['second'] = 0;}
-            if(!empty($TotalQuant->result()[2])){$data_count['jamura'] = $TotalQuant->result()[2];}else{$data_count['jamura'] = 0;}
-            if(!empty($TotalQuant->result()[3])){$data_count['pcf'] = $TotalQuant->result()[3];}else{$data_count['pcf'] = 0;}
-            if(!empty($TotalQuant->result()[4])){$data_count['reva'] = $TotalQuant->result()[4];}else{$data_count['reva'] = 0;}
-            if(!empty($TotalQuant->result()[5])){$data_count['upss'] = $TotalQuant->result()[5];}else{$data_count['upss'] = 0;}
-            if(!empty($TotalQuant->result()[6])){$data_count['todharpur'] = $TotalQuant->result()[6];}else{$data_count['todharpur'] = 0;}
+           // pr($TotalQuant->result());
+         //   die;
+
+         if(!empty($TotalQuant->result()[0])){
+             $data_count['first'] = $TotalQuant->result();
+            }
             
         }else{
                 $data_count['todharpur'] = 0;
@@ -279,6 +273,31 @@ class Auth_mod extends CI_Model {
             return $data_count;
         }
 
+        function RealTimeActiveParcha(){
+            $this->db->select('*');
+            $this->db->from('aa_rokad');
+            $this->db->order_by('rokad_id','desc');
+            $this->db->limit(1);
+            $rokad = $this->db->get();
+            $data_count['activeParcha'] = $rokad->row()->rokad_date;
+            return $data_count;
+            
+        }
+
+        function todays_KisanVahi(){
+            $middle = @strtotime($_POST['activeKishan']);             // returns bool(false)
+            $new_date = date('d-m-Y', $middle); 
+            $this->db->select('Round(SUM(Quantity),2) as quant, count(Kisan_ID) as totalKisan, acn.*');
+            $this->db->join("aa_center_name as acn",'kv.CenterName = acn.center_id','left');
+            $this->db->where('FY', fy()->FY);
+            $this->db->where('Purchase_Date', $new_date);
+            $this->db->where('product_type', fy()->product_type);
+            $this->db->group_by('kv.CenterName');
+            $this->db->from('kisanvahidata kv');
+            
+            $rokad = $this->db->get()->result();
+            return $rokad;
+        }
 }
 
 /* End of class */

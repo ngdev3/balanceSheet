@@ -1068,7 +1068,7 @@ class Report_mod extends CI_Model {
        
 	function Billing_details(){
 		
-        $querys =  $this->db->query("SELECT sum(expenses) as expenses,sum(deposit) as deposit, sum(deposit-expenses) as finalamt,account_no,aa_account_name.name from (SELECT (CASE WHEN type_of_account='deposit' THEN karch_amount ELSE 0 END) as deposit,(CASE WHEN type_of_account='expenses' THEN karch_amount ELSE 0 END) as expenses,account_no from aa_rokad WHERE FY = '".(fy()->FY)."' AND product_type = '".fy()->product_type."' AND template_id = '".fy()->template_id."' UNION ALL SELECT (0) as deposit,Ammount as expenses,account_no FROM kisanvahidata WHERE status_rec = 'done' AND FY = '".fy()->FY."' AND product_type = '".fy()->product_type."' AND template_id = '". fy()->template_id . "' ) finaltbl LEFT JOIN aa_account_name on aa_account_name.account_id=finaltbl.account_no GROUP by finaltbl.account_no");
+        $querys =  $this->db->query("SELECT sum(expenses) as expenses,sum(deposit) as deposit, sum(deposit-expenses) as finalamt,account_no,aa_account_name.name from (SELECT (CASE WHEN type_of_account='deposit' THEN karch_amount ELSE 0 END) as deposit,(CASE WHEN type_of_account='expenses' THEN karch_amount ELSE 0 END) as expenses,account_no from aa_rokad WHERE FY = '".(fy()->FY)."' AND product_type = '".fy()->product_type."' UNION ALL SELECT (0) as deposit,Ammount as expenses,account_no FROM kisanvahidata WHERE status_rec = 'done' AND FY = '".fy()->FY."' AND product_type = '".fy()->product_type."' ) finaltbl LEFT JOIN aa_account_name on aa_account_name.account_id=finaltbl.account_no GROUP by finaltbl.account_no");
     // print_r($this->db->last_query()); die;
         //    pr($querys->result()); die/kjkjhkhjkh;    
         if ($querys->num_rows() > 0) {
@@ -1081,7 +1081,7 @@ class Report_mod extends CI_Model {
 	}
 	function expenses_Billing_details(){
 		
-        $querys =  $this->db->query("SELECT SUM(ar.karch_amount) as final_karch_amount, ar.*, an.verification, an.account_id , an.name as name FROM aa_rokad ar INNER JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'expenses'  GROUP BY ar.account_no");
+        $querys =  $this->db->query("SELECT SUM(ar.karch_amount) as final_karch_amount, ar.*, an.verification, an.account_id , an.name as name FROM aa_rokad ar INNER JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'expenses' AND ar.FY = '".(fy()->FY)."' AND ar.product_type = '".fy()->product_type."GROUP BY ar.account_no");
       // print_r($this->db->last_query()); die;
         //    pr($querys->result()); die;    
         if ($querys->num_rows() > 0) {
@@ -1124,7 +1124,7 @@ class Report_mod extends CI_Model {
         }else{
             $defaultDate =  $new_date = date('Y-m-d');
         }
-        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'deposit' AND FY = '".(fy()->FY)."' AND product_type = '".fy()->product_type."' AND template_id = '". fy()->template_id . "' AND ar.rokad_date = '".$defaultDate."'");
+        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'deposit' AND ar.rokad_date = '".$defaultDate."'");
 		// print_r($this->db->last_query());    
         // pr($defaultDate); die;
 
@@ -1144,7 +1144,7 @@ class Report_mod extends CI_Model {
         }else{
             $defaultDate =  $new_date = date('Y-m-d');
         }
-        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'expenses' AND FY = '".(fy()->FY)."' AND product_type = '".fy()->product_type."' AND template_id = '" . fy()->template_id . "' AND ar.rokad_date = '".$defaultDate."';");
+        $querys =  $this->db->query("SELECT ar.*, an.account_id , an.name as name FROM aa_rokad ar LEFT JOIN aa_account_name an ON ar.account_no = an.account_id WHERE ar.type_of_account = 'expenses' AND ar.rokad_date = '".$defaultDate."';");
 		
     //    pr($querys->result()); die;    
         if ($querys->num_rows() > 0) {
@@ -1323,8 +1323,6 @@ function publisher_mapping_deatils($id){
     function fetchtheFinalAmountexpenses($id){
         $this->db->select('SUM(karch_amount) as expenses');
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
-
         $this->db->where('product_type', fy()->product_type);
         $this->db->where('type_of_account', 'expenses');
         $this->db->where('account_no', $id);
@@ -1335,8 +1333,6 @@ function publisher_mapping_deatils($id){
        $this->db->select('SUM(Ammount) as expenses');
        //    $this->db->where('type_of_account', 'expenses');
        $this->db->where('FY', fy()->FY);
-       $this->db->where('template_id', fy()->template_id);
-
        $this->db->where('product_type', fy()->product_type);
        $this->db->where('account_no', $id);
        $query = $this->db->get('kisanvahidata');
@@ -1406,18 +1402,23 @@ function publisher_mapping_deatils($id){
         $this->db->select('SUM(karch_amount) as deposit');
         $this->db->where('type_of_account', 'deposit');
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
-
         $this->db->where('product_type', fy()->product_type);
         $this->db->where('account_no', $id);
         $query = $this->db->get('aa_rokad');
         return $query->row();
-    }    
+    }
+
+    function totalMappedKisanVahi($id){
+        $this->db->select('count(Kisan_ID) as kisan_id');
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+        $this->db->where('account_no', $id);
+        $query = $this->db->get('reg_kisanvahidata');
+        return $query->row();
+    }
     function fetchtheFinalAmountKisanVahi($id){
         $this->db->select('SUM(Ammount) as Amount, SUM(Quantity) as Quantity');
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
-
         $this->db->where('product_type', fy()->product_type);
         $this->db->where('account_no', $id);
         $query = $this->db->get('kisanvahidata');
@@ -1427,8 +1428,6 @@ function publisher_mapping_deatils($id){
     function getKisanVahiUTRAmount($id){
         $this->db->select('SUM(Ammount) as Amount, SUM(Quantity) as Quantity, Count(Kisan_ID) as Count');
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
-
         $this->db->where('UTR_No REGEXP', '[0-9]');
         $this->db->where('product_type', fy()->product_type);
         $this->db->where('account_no', $id);
@@ -1441,28 +1440,27 @@ function publisher_mapping_deatils($id){
         $this->db->select('count(*) as totalcount');
         $this->db->where('status_rec', 'done');
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
         $this->db->where('product_type', fy()->product_type);
         $this->db->where('account_no', $id);
         $query = $this->db->get('kisanvahidata');
         return $query->row();
     }
     function Listmytotalkisanvahi($id){
-        $this->db->select('*');
-        $this->db->where('status_rec', 'done');
-        $this->db->where('account_no', $id);
+        $this->db->select('kd.*, acn.*');
+        $this->db->where('kd.status_rec', 'done');
+        $this->db->where('kd.account_no', $id);
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
         $this->db->where('product_type', fy()->product_type);
-        $query = $this->db->get('kisanvahidata');
+        $this->db->join("aa_center_name as acn",'acn.center_id = kd.CenterName','left');
+        $query = $this->db->get('kisanvahidata kd');
         return $query->result();
     }
     function ListmytotalDeposit($id){
         $this->db->select('*');
         $this->db->where('type_of_account', 'deposit');
+        // $this->db->join("aa_center_name as acn",'acn.center_id = aa_rokad.CenterName','left');
         $this->db->where('account_no', $id);
         $this->db->where('FY', fy()->FY);
-        $this->db->where('template_id', fy()->template_id);
         $this->db->where('product_type', fy()->product_type);
         $query = $this->db->get('aa_rokad');
         return $query->result();
@@ -1471,7 +1469,6 @@ function publisher_mapping_deatils($id){
         $this->db->select('*');
         $this->db->where('type_of_account', 'expenses');
         $this->db->where('account_no', $id);
-        $this->db->where('template_id', fy()->template_id);
         $this->db->where('FY', fy()->FY);
         $this->db->where('product_type', fy()->product_type);
         $query = $this->db->get('aa_rokad');
@@ -1491,215 +1488,17 @@ function publisher_mapping_deatils($id){
 		}
 
     }
-
-        
-function deleteMyParcha($id){
-    $this->db->where('rokad_id', $id);
-    $this->db->delete('aa_rokad'); 
-    if ($this->db->affected_rows() > 0)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-
-function getrokadtotalWeightdeposit($id){
-    $this->db->select('sum(quantity) as quant');
-    $this->db->where('FY', fy()->FY);
-    $this->db->where('type_of_account', 'deposit');
-    $this->db->where('product_type', fy()->product_type);
-    $this->db->where('account_no', $id);
-    $query = $this->db->get('aa_rokad');
-    $res = $query->result();
-   return  $query->row();
-
-}
-function getrokadtotalWeightexpenses($id){
-    $this->db->select('sum(quantity) as quant');
-    $this->db->where('FY', fy()->FY);
-    
-    $this->db->where('template_id', fy()->template_id);
-    $this->db->where('type_of_account', 'expenses');
-    $this->db->where('product_type', fy()->product_type);
-    $this->db->where('account_no', $id);
-    $query = $this->db->get('aa_rokad');
-    $res = $query->result();
-   return $query->row();
-   
-}
-
-function insertMyWeight($rokad_id, $quant){
-    $updateData			=	array(
-        'bill_no' => '',
-        'quantity'  =>  $quant,
-         );
-        $this->db->where('rokad_id', $rokad_id);	
-        $this->db->update('aa_rokad',$updateData);
-}
-
-function Billing_check(){
-    if(fy()->template_id !== '1'){
-        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2020-2021 C R Industries Allowed) </h1> <br>";
-        return false;
-    }
-    $start = strtotime('2020-06-07');
-    $end = strtotime('2021-03-31');
-    echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
-   // die;
-while($start <= $end){
-    $dor =  date('Y-m-d', $start);
-    $this->db->select('SUM(karch_amount) AS exp');
-    $this->db->where('rokad_date',$dor);
-    $this->db->where('type_of_account','expenses');
-    $this->db->where('template_id', fy()->template_id);
-    $this->db->where('FY', fy()->FY);
-    $this->db->where('product_type', fy()->product_type);
-    $query_exp = $this->db->get('aa_rokad');
-
-    $this->db->select('SUM(karch_amount) AS dep');
-    $this->db->where('rokad_date',$dor);
-    $this->db->where('type_of_account','deposit');
-     $this->db->where('template_id', fy()->template_id);
-        $this->db->where('FY', fy()->FY);
-        $this->db->where('product_type', fy()->product_type);
-    $query_dep = $this->db->get('aa_rokad');
-
-    // $resp = $this->db->from('aa_rokad');
-   // pr( $query_exp->ROW());
-    //pr( $query_dep->ROW());
-    $act  = $query_dep->ROW()->dep - $query_exp->ROW()->exp;
-    echo "<br> Date:- ". ($dor) ."<br><b> Shree Rokadh Bakee : ". $act."</b><br>";
-    $start = strtotime("1 day", $start);
-    $dor =  date('Y-m-d', $start);
-
-  //  echo "<br>".$dor;
-
-        $this->db->select('*');
-        $this->db->where('rokad_date',$dor);
-        $this->db->where('account_no','294');
-        $this->db->where('type_of_account','deposit');
-        $this->db->where('template_id', fy()->template_id);
-        $this->db->where('FY', fy()->FY);
-        $this->db->where('product_type', fy()->product_type);
-        $query_row_found = $this->db->get('aa_rokad');
-        if( $query_row_found->num_rows() > 0){
-
-            $updateData			=	array(
-                'karch_amount'  =>  $act,
-            );
-        $this->db->where('rokad_date',$dor);
-        $this->db->where('account_no','294');
-        $this->db->where('type_of_account','deposit');
-        $this->db->where('template_id', fy()->template_id);
-        $this->db->where('FY', fy()->FY);
-        $this->db->where('product_type', fy()->product_type);	
-        $this->db->update('aa_rokad',$updateData);
-        echo 'Client details updated successfully<br>';
-
-        } else {
-
-            $updateData			=	array(
-                'karch_amount'  =>  $act,
-                'FY'  =>  fy()->FY,
-                'product_type'  =>  fy()->product_type,
-                'template_id'  =>   fy()->template_id,
-                'rokad_date'  =>  $dor,
-                'account_no'  =>  '294',
-                'rokad_type'  =>  'kisanVahi',
-                'type_of_account'  =>  'deposit',
-                'account_name'  =>  'SHREE ROKADH BAKEE_294',
-                'added_by' => $this->session->userdata('userinfo')->id,
-            );
-            $this->db->insert("aa_rokad", $updateData);
-            echo 'Client details Inserted successfully<br>';
-
+    function deleteMyParcha($id){
+        $this->db->where('rokad_id', $id);
+        $this->db->delete('aa_rokad'); 
+        if ($this->db->affected_rows() > 0)
+        {
+            return TRUE;
         }
-
-   }
-}
-
-function Billing_check_template_6(){
-    if(fy()->template_id !== '6'){
-        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2020-2021 SARLA GUPTA Allowed) </h1> <br>";
-        return false;
-    }
-    $start = strtotime('2020-04-01');
-    $end = strtotime('2021-03-31');
-    echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
-   // die;
-while($start <= $end){
-    $dor =  date('Y-m-d', $start);
-    $this->db->select('SUM(karch_amount) AS exp');
-    $this->db->where('rokad_date',$dor);
-    $this->db->where('type_of_account','expenses');
-    $this->db->where('template_id', fy()->template_id);
-    $this->db->where('FY', fy()->FY);
-    $this->db->where('product_type', fy()->product_type);
-    $query_exp = $this->db->get('aa_rokad');
-
-    $this->db->select('SUM(karch_amount) AS dep');
-    $this->db->where('rokad_date',$dor);
-    $this->db->where('type_of_account','deposit');
-     $this->db->where('template_id', fy()->template_id);
-        $this->db->where('FY', fy()->FY);
-        $this->db->where('product_type', fy()->product_type);
-    $query_dep = $this->db->get('aa_rokad');
-
-    // $resp = $this->db->from('aa_rokad');
-   // pr( $query_exp->ROW());
-    //pr( $query_dep->ROW());
-    $act  = $query_dep->ROW()->dep - $query_exp->ROW()->exp;
-    echo "<br> Date:- ". ($dor) ."<br><b> Shree Rokadh Bakee : ". $act."</b><br>";
-    $start = strtotime("1 day", $start);
-    $dor =  date('Y-m-d', $start);
-
-  //  echo "<br>".$dor;
-
-        $this->db->select('*');
-        $this->db->where('rokad_date',$dor);
-        $this->db->where('account_no','294');
-        $this->db->where('type_of_account','deposit');
-        $this->db->where('template_id', fy()->template_id);
-        $this->db->where('FY', fy()->FY);
-        $this->db->where('product_type', fy()->product_type);
-        $query_row_found = $this->db->get('aa_rokad');
-        if( $query_row_found->num_rows() > 0){
-
-            $updateData			=	array(
-                'karch_amount'  =>  $act,
-            );
-        $this->db->where('rokad_date',$dor);
-        $this->db->where('account_no','294');
-        $this->db->where('type_of_account','deposit');
-        $this->db->where('template_id', fy()->template_id);
-        $this->db->where('FY', fy()->FY);
-        $this->db->where('product_type', fy()->product_type);	
-        $this->db->update('aa_rokad',$updateData);
-        echo 'Client details updated successfully<br>';
-
-        } else {
-
-            $updateData			=	array(
-                'karch_amount'  =>  $act,
-                'FY'  =>  fy()->FY,
-                'product_type'  =>  fy()->product_type,
-                'template_id'  =>   fy()->template_id,
-                'rokad_date'  =>  $dor,
-                'account_no'  =>  '294',
-                'rokad_type'  =>  'kisanVahi',
-                'type_of_account'  =>  'deposit',
-                'account_name'  =>  'SHREE ROKADH BAKEE_294',
-                'added_by' => $this->session->userdata('userinfo')->id,
-            );
-            $this->db->insert("aa_rokad", $updateData);
-            echo 'Client details Inserted successfully<br>';
-
+        else
+        {
+            return FALSE;
         }
-
-   }
-}
+    }
 
 }

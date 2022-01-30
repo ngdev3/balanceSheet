@@ -20,7 +20,7 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
                                     
 									<h4 class="c-grey-900 mB-20 pull-left"> List </h4>
                                     
-									<a href="<?php echo base_url('admin/account_name/add');?>" id="back-btn" class="btn cur-p btn-primary pull-right">ADD</a>
+									<a href="<?php echo base_url('admin/kisanreg/add');?>" id="back-btn" class="btn cur-p btn-primary pull-right">ADD</a>
                                     
                                     </div>
                                    
@@ -32,9 +32,12 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
                              <tr>
                             <!-- <th width="1%"> </th>                                -->
                             <th>S.No.</th>
-                            <th>Account ID</th>
+                            <th>Farmer Id</th>
+                            <th>Farmer Name</th>
+                            <th>Quantity</th>
+                            <th>Reg Date</th>
+                            <th>DOB</th>
                             <th>Account Name</th>
-                            <th>Contact Number</th>
                             <th>Action</th>
                             </tr>
                         
@@ -82,15 +85,21 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         "processing": true,
         "serverSide": true,
         "columns": [{
-                "orderable": true
+                "orderable": false
+            }, {
+                "orderable": false
             }, {
                 "orderable": true
             }, {
-                "orderable": true
+                "orderable": false
             }, {
-                "orderable": true
+                "orderable": false
             }, {
-                "orderable": true
+                "orderable": false
+            }, {
+                "orderable": false
+            }, {
+                "orderable": false
             }
             ],
         "lengthMenu": [
@@ -105,14 +114,16 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         "language": {"search": "My search: ", "lengthMenu": "_MENU_ Records", "paginate": {"previous": "Prev", "next": "Next", "last": "Last", "first": "First"}},
         "columnDefs": [{'className': 'control', 'orderable': false, 'targets': 0},
             {'orderable': false, 'targets': [-1]},
-            {"targets": [0], "orderable": false, "searchable": true},
+            {"targets": [0], "orderable": false, "searchable": false},
             {"targets": [1], "orderable": true, "searchable": true},
-            {"targets": [2], "orderable": false, "searchable": true},
-            {"targets": [3], "orderable": false, "searchable": true},
-            {"targets": [4], "orderable": false, "searchable": true},
+            {"targets": [2], "orderable": false, "searchable": false},
+            {"targets": [3], "orderable": false, "searchable": false},
+            {"targets": [4], "orderable": false, "searchable": false},
+            {"targets": [5], "orderable": false, "searchable": false},
+            {"targets": [6], "orderable": false, "searchable": false},
         ],
         "ajax": {
-            url: "<?php echo base_url(); ?>admin/account_name/view_all?<?php echo $QUERY_STRING; ?>", // json datasource
+            url: "<?php echo base_url(); ?>admin/kisanreg/view_all?<?php echo $QUERY_STRING; ?>", // json datasource
             type: "post",
 
             error: function (data) {

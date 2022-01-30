@@ -20,10 +20,19 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
                                     
 									<h4 class="c-grey-900 mB-20 pull-left"> List </h4>
                                     
-									<a href="<?php echo base_url('admin/account_name/add');?>" id="back-btn" class="btn cur-p btn-primary pull-right">ADD</a>
+									<a href="<?php echo base_url('admin/Kisanreg/add');?>" id="back-btn" class="btn cur-p btn-primary pull-right">ADD</a>
                                     
                                     </div>
                                    
+                                    <form method="get"  id="filter_id" class="pull-right" >
+                                    <select class="form-control custom_filter " name="status"  >
+                                        <option value="none"> All </option>                                                                                                
+                                        <option value="Unverified" <?php echo @$_GET['status'] == 'Unverified' ? "selected" : ""; ?>> Unverified  </option>                                                                                                
+                                        <option value="Verified" <?php echo @$_GET['status'] == 'Verified' ? "selected" : ""; ?>> Verified  </option> 
+                                        <option value="Mapped" <?php echo @$_GET['status'] == 'Mapped' ? "selected" : ""; ?>> Mapped   </option>                                                                                                
+                                    </select>
+                                </form>
+
                                     </div>
                                    
                     <table class="table table-striped table-bordered"  id="employee-grid-buyer">
@@ -32,9 +41,13 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
                              <tr>
                             <!-- <th width="1%"> </th>                                -->
                             <th>S.No.</th>
-                            <th>Account ID</th>
+                            <th>Farmer Id</th>
+                            <th>Farmer Name</th>
+                            <th>Quantity</th>
+                            <th>Reg Date</th>
+                            <th>DOB</th>
                             <th>Account Name</th>
-                            <th>Contact Number</th>
+                            <th>Status</th>
                             <th>Action</th>
                             </tr>
                         
@@ -55,6 +68,7 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
 <script type="text/javascript" src="<?= base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 
 <script src="<?= base_url(); ?>assets/admin/pages/scripts/table-managed.js"></script>
+
 
 <script>
 
@@ -81,6 +95,10 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
         "processing": true,
         "serverSide": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'csv'
+        ],
         "columns": [{
                 "orderable": true
             }, {
@@ -90,6 +108,14 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
             }, {
                 "orderable": true
             }, {
+                "orderable": true
+            }, {
+                "orderable": true
+            }, {
+                "orderable": true
+            }, {
+                "orderable": true
+            },{
                 "orderable": true
             }
             ],
@@ -105,14 +131,18 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         "language": {"search": "My search: ", "lengthMenu": "_MENU_ Records", "paginate": {"previous": "Prev", "next": "Next", "last": "Last", "first": "First"}},
         "columnDefs": [{'className': 'control', 'orderable': false, 'targets': 0},
             {'orderable': false, 'targets': [-1]},
-            {"targets": [0], "orderable": false, "searchable": true},
+            {"targets": [0], "orderable": false, "searchable": false},
             {"targets": [1], "orderable": true, "searchable": true},
-            {"targets": [2], "orderable": false, "searchable": true},
-            {"targets": [3], "orderable": false, "searchable": true},
-            {"targets": [4], "orderable": false, "searchable": true},
+            {"targets": [2], "orderable": false, "searchable": false},
+            {"targets": [3], "orderable": false, "searchable": false},
+            {"targets": [4], "orderable": false, "searchable": false},
+            {"targets": [5], "orderable": false, "searchable": false},
+            {"targets": [6], "orderable": false, "searchable": false},
+            {"targets": [7], "orderable": false, "searchable": false},
+            {"targets": [8], "orderable": false, "searchable": false},
         ],
         "ajax": {
-            url: "<?php echo base_url(); ?>admin/account_name/view_all?<?php echo $QUERY_STRING; ?>", // json datasource
+            url: "<?php echo base_url(); ?>admin/kisanreg/view_all?<?php echo $QUERY_STRING; ?>", // json datasource
             type: "post",
 
             error: function (data) {
@@ -143,7 +173,7 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         var status = $(this).val();
         if(status == 'none')
         {
-           window.location.href= "<?php echo base_url('admin/campaign'); ?>" ;
+           window.location.href= "<?php echo base_url('admin/kisanreg/listing'); ?>" ;
         }
         else{$("#filter_id").submit();}
          

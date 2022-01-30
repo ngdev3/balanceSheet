@@ -469,4 +469,16 @@ class Auth extends CI_Controller {
         }
       
 }
+
+function GeneratePdf(){
+    $this->load->view('welcome_message');
+    $html = $this->output->get_output();
+    $this->load->library('pdf');
+    $this->pdf->loadHtml($html);
+    $this->pdf->setPaper('A4', 'portrait');
+    $this->pdf->render();
+    // // Output the generated PDF (1 = download and 0 = preview)
+    $this->pdf->stream("html_contents.pdf", array("Attachment"=> 0));		
+}
+
 }

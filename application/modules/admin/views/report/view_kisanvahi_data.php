@@ -99,6 +99,10 @@
   $(document).ready(function() {
     $('#dtBasicExample').DataTable(
       {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         "order": [[ 4, "desc" ]]
     }
     );

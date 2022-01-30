@@ -1270,10 +1270,10 @@ function get_all_financial_year(){
     function add_fy($data){
         
       //  $this->db->where('template_id',$data['template_id']);
-        // $this->db->update('aa_template',array('status'=>'Inactive'));
+        $this->db->update('aa_template',array('status'=>'Inactive'));
 
-        $this->db->where('id',$this->session->userdata('userinfo')->id);
-        $this->db->update('users',$data);
+        $this->db->where('template_id',$data['template_id']);
+        $this->db->update('aa_template',$data);
         $last_id = $this->db->affected_rows();
            return $last_id;			
        }

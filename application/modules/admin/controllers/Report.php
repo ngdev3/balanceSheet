@@ -281,15 +281,13 @@ class Report extends CI_Controller {
 			//die;
 			$isFoundAccountDetail = explode('_',$_POST['search_name']);
 			$data['expenses'] = $this->Report_mod->fetchtheFinalAmountexpenses($isFoundAccountDetail[1]);
+			$data['totalMappedKisanVahi'] = $this->Report_mod->totalMappedKisanVahi($isFoundAccountDetail[1]);
 			$data['deposit'] = $this->Report_mod->fetchtheFinalAmountdeposit($isFoundAccountDetail[1]);
 			$data['kisanvahi_Amount'] = $this->Report_mod->fetchtheFinalAmountKisanVahi($isFoundAccountDetail[1]);
 			$data['UTR_Amount'] = $this->Report_mod->getKisanVahiUTRAmount($isFoundAccountDetail[1]);
-			$data['getrokadtotalWeightdeposit'] = $this->Report_mod->getrokadtotalWeightdeposit($isFoundAccountDetail[1]);
-			$data['getrokadtotalWeightexpenses'] = $this->Report_mod->getrokadtotalWeightexpenses($isFoundAccountDetail[1]);
 			$data['Finaldeposit'] = '';
 			$data['Finalexpenses'] = '';
-			// pr($data);
-		//	pr($data['expenses']->expenses);
+		//	pr($data);
 			if($data['expenses']->expenses != '' && ($data['expenses']->expenses > $data['deposit']->deposit)){
 				$data['Finalexpenses']  = $data['expenses']->expenses - $data['deposit']->deposit;
 			}else if ($data['deposit']->deposit != '' && ($data['deposit']->deposit > $data['expenses']->expenses  )) {
@@ -338,7 +336,7 @@ class Report extends CI_Controller {
         $data['title'] = "Track (The Rest Accounting Key) || Search Report";
 		$data['users']= $this->Report_mod->Billing_details();
 		//$data['expenses']= $this->Report_mod->expenses_Billing_details();
-		// pr($data);
+		// pr($data); die;
 		//$count[] = count($data['expenses']);
 		//$count[] = count($data['deposit']);
 		//$count = max($count);
@@ -504,7 +502,6 @@ class Report extends CI_Controller {
 
 	}
 
-	
 	public function deleteMyEntry(){
 		if(isPostBack()){
 			$resp = $this->Report_mod->deleteMyParcha($_POST['deleteEntry']);
@@ -512,17 +509,6 @@ class Report extends CI_Controller {
 		}
 	}
 	
-	public function checkBalance(){
-		if(isPostBack()){
-		}
-		$this->Report_mod->Billing_check();
-	}
-	
-	public function Billing_check_template_6(){
-		if(isPostBack()){
-		}
-		$this->Report_mod->Billing_check_template_6();
-	}
 	
 
 }

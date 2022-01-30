@@ -82,8 +82,8 @@ input[type=submit] {
                                  <?= "|| ".ucfirst(@fy()->FY)?>
                               </span>
                               <span class="fsz-sm c-grey-900" style="color:blue">
-                                 <?php if(@fy()->product_type == '1') { echo " || C R Industries"; } ?>
-                                 <?php if(@fy()->product_type == '2') { echo "|| Sarla Gupta And Company"; } ?>
+                                 <?php if(@fy()->product_type == '1') { echo " || Paddy ||"; } ?>
+                                 <?php if(@fy()->product_type == '2') { echo "|| Wheat ||"; } ?>
                               </span>
                              
                            </div>
@@ -98,11 +98,7 @@ input[type=submit] {
                                                <select id="template_fy" class="form-control" name="template_fy" required  >
                                                       <option value="" selected >Select Financial Year</option>
                                                       <?php foreach($fy as $new) { ?>
-                                                        <?php if($new->template_id == $this->session->userdata('userinfo')->default_firm){?>
-                                                          <option Selected value="<?php echo $new->template_id; ?>" ><?php echo $new->template_name.' || '.$new->FY. '  Active'; ?></option>
-                                                          <?php }else{ ?>
-                                                            <option value="<?php echo $new->template_id; ?>" ><?php echo $new->template_name.' || '.$new->FY. '  Inactive'; ?></option>
-                                                        <?php }?>
+                                                        <option <?php if($new->status == 'Active'){ echo "selected"; }?> value="<?php echo $new->template_id; ?>" ><?php echo $new->template_name.' || '.$new->status; ?></option>
                                                   <?php } ?>
                                                   </select>                                         
                                            <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('rokad_type'); ?></div></label>

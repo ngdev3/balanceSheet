@@ -126,13 +126,50 @@ input[type=submit] {
                                                     //   pr($postvalue); die;
                                                       ?>
                                        </div>
+
+                                       <div class="form-row">
+                                           
+                                           <div class="form-group col-md-6">
+                                                   <label for="inputState2">Party Account Name *</label>
+                                                   <?php  
+                                                   $name = @$result->party_account_no;
+                                                   $postvalue = @$_POST['party_account_no'];
+    //                                                    $val = !empty($postvalue)? $postvalue:$name;
+                                                   echo form_input(array('autofocus'=>'autofocus','name' => 'party_account_no','maxlength'=>'100', 'class' => 'form-control', 'id'=>'myInput02', 'placeholder' => 'Party Account Name', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                                ?>
+                                                  <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('party_account_no'); ?></div></label>
+                                                                                             
+                                               </div>
+                                               <div class="form-group col-md-4">
+                                                   <label for="inputState2">Party Invoice No *</label>
+                                                   <?php  
+                                                   $name = @$result->party_invoice_no;
+                                                   $postvalue = @$_POST['party_invoice_no'];
+                                                   echo form_input(array('autofocus'=>'autofocus','name' => 'party_invoice_no','maxlength'=>'100', 'class' => 'form-control',  'placeholder' => 'Party Invoice No', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                                ?>
+                                                  <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('party_invoice_no'); ?></div></label>
+                                                                                             
+                                               </div> 
+                                               <div class="form-group col-md-2">
+                                                   <label for="inputState2">Quantity *</label>
+                                                   <?php  
+                                                   $name = @$result->quantity;
+                                                   $postvalue = @$_POST['quantity'];
+                                                   echo form_input(array('autofocus'=>'autofocus','name' => 'quantity','maxlength'=>'100', 'class' => 'form-control',  'placeholder' => 'Quantity', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                                ?>
+                                                  <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('quantity'); ?></div></label>
+                                                                                             
+                                               </div> 
+                                              
+                                           </div>
+
+
                                             <div class="form-row">
                                            
                                             <div class="form-group col-md-6">
                                                 <label for="inputState2">Type*</label>
                                                    <select id="inputState2" class="form-control" name="type_of_account">
                                                        <option value="deposit" selected >Deposit(जमा)</option>
-                                                       <option value="expenses" >Account (नाम)</option>
                                                    </select>                                         
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -145,46 +182,6 @@ input[type=submit] {
                                                    <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('purchaser_amount'); ?></div></label>
                                                 </div>
                                             </div>
-                                            <div class="form-row">
-                                           
-                                           <div class="form-group col-md-6">
-                                                  <label for="inputState2">Quantity </label>
-                                                  <?php  $name = @$result->quantity;
-                                                  $postvalue = @$_POST['quantity'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                  echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'quantity','maxlength'=>'25', 'class' => 'form-control', 'id' => 'quantity', 'placeholder' => 'Quantity', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                               ?>
-                                                 <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('quantity'); ?></div></label>
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                  <label for="inputState2">Bill No</label>
-                                                  <?php  $name = @$result->bill_no;
-                                                  $postvalue = @$_POST['bill_no'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                  echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'bill_no','maxlength'=>'25', 'class' => 'form-control', 'id' => 'bill_no', 'placeholder' => 'Bill No', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                               ?>
-                                                 <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('bill_no'); ?></div></label>
-                                              </div>
-                                          </div>
-                                            <div class="form-row">
-                                           
-                                           <div class="form-group col-md-6">
-                                               <label for="inputState2">Type*</label>
-                                                  <select id="inputState2" class="form-control" name="rokad_type">
-                                                      <option value="kisanVahi" selected >Kisan Vahi</option>
-                                                      <option value="Nagad" >Nagad</option>
-                                                       <option value="Jama" >Deposit(जमा)</option>
-                                                  </select>                                         
-                                               </div>
-                                               <div class="form-group col-md-6">
-                                               <label for="inputState2">Status*</label>
-                                                  <select id="inputState2" class="form-control" name="status">
-                                                      <option value="Active">Active</option>
-                                                      <option value="Inactive">Inactive</option>
-                                                  </select>                                         
-                                               </div> 
-                                           </div>
-                                            
                                           
                                             
                                             <div class="form-row">
@@ -201,10 +198,17 @@ input[type=submit] {
                                                                                          
                                            </div> 
                                               
-
-
+                                               <div class="form-group col-md-6">
+                                               <label for="inputState2">Status*</label>
+                                                  <select id="inputState2" class="form-control" name="status">
+                                                      <option value="Active">Active</option>
+                                                      <option value="Inactive">Inactive</option>
+                                                  </select>                                         
+                                               </div> 
                                            </div>
-                                           
+                                            
+                                          
+                                        
                                             <div class="form-group">
                                                 <div class="checkbox checkbox-circle checkbox-info peers ai-c text-center">
                                                    <div class="peer"> 
@@ -347,6 +351,7 @@ function autocomplete(inp, arr) {
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"));
+autocomplete(document.getElementById("myInput02"));
 
 
     $( function() {

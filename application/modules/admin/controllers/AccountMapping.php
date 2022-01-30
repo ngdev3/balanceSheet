@@ -107,6 +107,7 @@ class AccountMapping extends CI_Controller {
 				
 			}
 		}
+		$data['center_list'] = $this->AccountMapping_mod->center_list();
 		$data['page'] = 'campaign/add';
         $data['title'] = "Track (The Rest Accounting Key) || Add";
         $this->load->view('layout', $data);
@@ -143,6 +144,7 @@ class AccountMapping extends CI_Controller {
 				
 			}
 		}
+		$data['center_list'] = $this->AccountMapping_mod->center_list();
 		$data['page'] = 'campaign/add_Kisan_Vahi';
         $data['title'] = "Track (The Rest Accounting Key) || Add";
         $this->load->view('layout', $data);

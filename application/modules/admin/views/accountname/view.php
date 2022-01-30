@@ -5,98 +5,58 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                               <div> <a target="_blank" href="<?php echo base_url().'uploads/invoice_slips/'.$users->invoice_name;?>" id="back-btn" class="btn cur-p btn-primary pull-right"><i class="fa fa-download"></i></a></div>
-                                <a href="<?=base_url()?>admin/campaign" id="back-btn" class="btn cur-p btn-primary pull-right">Back</a>
-
+                                <a href="<?=base_url()?>admin/account_name/listing" id="back-btn" class="btn cur-p btn-primary pull-right">Back</a>
+                                <?php //pr($users); die;?>
                                     <!--<h4 class="c-grey-900 mB-20">Simple Table</h4>-->
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="table_bg" scope="col">Billing Date</th>
-                                                <th scope="col"><?php echo ucfirst($users->billing_date);?></th>
+                                                <th class="table_bg" scope="col">AccountID</th>
+                                                <th scope="col"><?php echo ucfirst($users->account_id);?></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th  class="table_bg" scope="row">Truck No.</th>
-                                                <td><?php echo $users->truck_no;?></td>
+                                                <th  class="table_bg" scope="row">Account Name</th>
+                                                <td><?php echo $users->name;?></td>
                                             </tr>
                                             <tr>
                                                 <th class="table_bg" scope="row">Challan No</th>
-                                                <td><?php echo $users->challan_no;?></td>
+                                                <td><?php echo $users->contact_person_name;?></td>
                                             </tr>
                                             <tr>
                                                 <th class="table_bg" scope="row">Bill No</th>
-                                                <td><?php echo $users->bill_no;?></td>
+                                                <td><?php echo $users->state_code;?></td>
                                             </tr>
-
-                                            <tr>
-                                                <th class="table_bg" scope="row">Quality</th>
-                                                <td><a href="<?php echo base_url('master/quality/view/').Id_encode($users->quality);?>"><?php echo $users->quality_name;?></a></td>
-                                            </tr>
-
                                             <tr>
                                                 <th class="table_bg" scope="row">Product Quantity </th>
-                                                <td><?php echo ($users->quantity);?></td>
+                                                <td><?php echo ($users->email_id);?></td>
                                             </tr>
-                                            <tr>
-                                                <th class="table_bg" scope="row">Purchaser Name</th>
-                                                <!-- <td><?php echo $users->purchaser_name;?></td> -->
-                                                <td><a href="<?php echo base_url('master/purchaser/view/').Id_encode($users->purchaser_id);?>"><?php echo $users->purchaser_name;?></a></td>
-                                            </tr>
+                                            
                                             <tr>
                                                 <th class="table_bg" scope="row">Purchaser Rate</th>
-                                                <td><?php echo $users->purchaser_rate;?></td>
+                                                <td><?php echo $users->purchaser_account_no;?></td>
                                             </tr>
 											<tr>
                                                 <th class="table_bg" scope="row">Purchaser Amount</th>
-                                                <td><?php echo $users->purchaser_amount;?></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Site Name</th>
-                                                <td><a href="<?php echo base_url('master/site/view/').Id_encode($users->site_id);?>"><?php echo $users->name;?></a></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Seller Name</th>
-                                                <td><a href="<?php echo base_url('master/site/view/').Id_encode($users->seller_id);?>"><?php echo $users->seller_name;?></a></td>
+                                                <td><?php echo $users->bank_name;?></td>
                                             </tr>
 											<tr>
                                                 <th class="table_bg" scope="row">Seller Rate </th>
-                                                <td><?php echo $users->seller_rate;?></td>
+                                                <td><?php echo $users->ifsc_code;?></td>
                                             </tr>
 											<tr>
                                                 <th class="table_bg" scope="row">Seller Amount</th>
-                                                <td><?php echo $users->seller_amount;?></td>
+                                                <td><?php echo $users->purchaser_address;?></td>
                                             </tr>
 											<tr>
                                                 <th class="table_bg" scope="row">Purchaser Amount</th>
-                                                <td><?php echo $users->purchaser_amount;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">Gross Profit (GP)</th>
-                                                <td><?php echo $users->profit;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">CGST </th>
-                                                <td><?php echo $users->cgst;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">SGST</th>
-                                                <td><?php echo $users->sgst;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">Amount After GST</th>
-                                                <td><?php echo $users->gst_amount;?></td>
+                                                <td><?php echo $users->purchaser_gst_no;?></td>
                                             </tr>
                                             <tr>
 											    <th class="table_bg" scope="row">Status</th>
                                                 <td><?php echo $users->status;?></td>
                                             </tr>
-
-
-
-
-
                                         </tbody>
                                     </table>
                                 </div>

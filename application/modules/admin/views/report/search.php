@@ -78,7 +78,7 @@ input[type=submit] {
     width: max-content;
 }
 </style>
-
+<meta charset="UTF-8">
 <main class="main-content bgc-grey-100">
 
                 <div id="mainContent">
@@ -118,14 +118,24 @@ input[type=submit] {
                                            <table class="table">
   <thead>
     <tr style="text-align:center">
-      <th scope="col">जमा Quantity</th>
-      <th scope="col">नाम Quantity</th>
+      <th scope="col">Count</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">UTR Amount</th>
+      <th scope="col">UTR Quantity</th>
+      <th scope="col">UTR Count</th>
+      <th scope="col">Current नाम</th>
     </tr>
   </thead>
   <tbody style="text-align:center">
     <tr>
-      <th scope="row" id="getrokadtotalWeightdeposit"></th>
-      <th scope="row" id="getrokadtotalWeightexpenses"></th>
+      <th scope="row" id="mykisanvahicount"></th>
+      <th scope="row" id="mykisanvahiamount"></th>
+      <th scope="row" id="mykisanvahiquantity"></th>
+      <th scope="row" id="kisanvahiUTRNo"></th>
+      <th scope="row" id="kisanvahiUTRNoQuantity"></th>
+      <th scope="row" id="kisanvahiUTRNoCount"></th>
+      <th scope="row" id="kisanvahiUTRNaam"></th>
     </tr>
   </tbody>
 </table>
@@ -153,55 +163,53 @@ input[type=submit] {
                             <div class="col-md-12">
                                 <div class="bgc-white bd bdrs-3 p-20 mB-20">
                                <!-- <div> <a target="_blank" href="<?php echo base_url().'uploads/invoice_slips/'.$users->invoice_name;?>" id="back-btn" class="btn cur-p btn-primary pull-right"><i class="fa fa-download"></i></a></div> -->
+                                           <div class="text-center">
+                                             <i class="c-black-500 ti-eye show" style="font-size: 50px;" id="clickToShow" ></i>
+                                             <i class="c-black-500 ti-slice hide"  style="font-size: 50px;" id="clickToHide"></i>
+                                           </div>
 
-                                    <!--<h4 class="c-grey-900 mB-20">Simple Table</h4>-->
                                     <table class="table">
                                         <tbody>
                                             <tr>
                                                 <th  class="table_bg" scope="row">नगद नाम</th>
-                                                <td id="expense_nagad" class="blackCSS textcenter"></td>
+                                                <td id="expense_nagad" class="blackCSS textcenter hide"></td>
                                             </tr>
                                             <tr>
                                                 <th  class="table_bg" scope="row">किसान वही नाम</th>
-                                                <td id="expense_kisanvahi" class="blackCSS textcenter"></td>
+                                                <td id="expense_kisanvahi" class="blackCSS textcenter hide"></td>
                                             </tr>
                                             <tr onClick="myFunction_expenses()"  data-toggle="modal" data-target="#ExpensesmyModal">
                                                 <th  class="table_bg" scope="row">टोटल नाम</th>
-                                                <td id="expense" class="blackCSS textcenter"></td>
+                                                <td id="expense" class="blackCSS textcenter hide"></td>
                                             </tr>
                                             <tr onClick="myFunction_deposit()"  data-toggle="modal" data-target="#DepositmyModal">
                                                 <th class="table_bg" scope="row">जमा</th>
-                                                <td id="deposit" class="blackCSS textcenter"></td>
+                                                <td id="deposit" class="blackCSS textcenter hide"></td>
 
                                             </tr>
                                             <tr>
                                                 <th class="table_bg" scope="row">शेष जमा</th>
-                                                <td id="MyfinalDeposit" class="blackCSS textcenter"></td>
+                                                <td id="MyfinalDeposit" class="blackCSS textcenter hide"></td>
 
                                             </tr>
                                             <tr>
                                                 <th class="table_bg" scope="row">शेष नाम</th>
-                                                <td id="MyFinalExpenses" class="blackCSS textcenter"></td>
+                                                <td id="MyFinalExpenses" class="blackCSS textcenter hide"></td>
 
                                             </tr>
                                             <tr onClick="myFunction()"  data-toggle="modal" data-target="#myModal">
                                                 <th class="table_bg" scope="row" >किसान संख्या</th>
                                               
-                                                <td id="mykisanvahicount">   <button class="btn btn-primary">Show KisanVahi</button> </td>
-
-                                            </tr>
-                                            
-                                            <!-- <tr>
-                                                <th class="table_bg" scope="row" >Amount</th>
-                                                <td id="mykisanvahiamount" class="blackCSS" style="margin-left:10px"></td>
+                                                <td id="mykisanvahicount">   
+                                                  <button class="btn btn-primary">Show KisanVahi</button> 
+                                                </td>
 
                                             </tr>
                                             <tr>
-                                                <th class="table_bg" scope="row" >Quantity</th>
-                                                <td id="mykisanvahiquantity" class="blackCSS" style="margin-left:10px"></td>
+                                                <th class="table_bg" scope="row">Total Reg Kisan</th>
+                                                <td id="total_reg" class="blackCSS textcenter"></td>
 
-                                            </tr>                                           -->
-
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -224,7 +232,7 @@ input[type=submit] {
                 <div class="modal-content">
                   
                   <div class="modal-body">
-                  <div class="container">
+                  <div ">
                       <h2>Information About Kisan</h2>
                       <table class="table" id="runmytable">
                         <thead>
@@ -253,7 +261,7 @@ input[type=submit] {
                 <div class="modal-content">
                   
                   <div class="modal-body">
-                  <div class="container">
+                  <div >
                       <h2>Information About Deposit Value</h2>
                       <table class="table" id="Depositrunmytable">
                         <thead>
@@ -283,7 +291,7 @@ input[type=submit] {
                 <div class="modal-content">
                   
                   <div class="modal-body">
-                  <div class="container">
+                  <div class="">
                       <h2>Information About Kisan</h2>
                       <table class="table" id="Expensesrunmytable">
                         <thead>
@@ -324,6 +332,8 @@ input[type=submit] {
 
 
             <script>
+
+
             $('#whatsAppSend').click(()=>{
               whatsAppSend();
             })
@@ -364,7 +374,8 @@ function myFunction() {
                             <th>Purchase Date</th>
                             <th>Status</th>
                             <th>Center Name</th>
-                            <th>UTR No</th>
+                            <th>A/C Hint</th>
+                            <th>Bank Name</th>
                             `)
   $.ajax({
         url: "<?php echo base_url(); ?>admin/report/Listmytotalkisanvahi",
@@ -383,8 +394,9 @@ function myFunction() {
                     <td>`+a[i].Ammount+`</td>
                     <td>`+a[i].Purchase_Date+`</td>
                     <td>`+a[i].PFMS_Status+`</td>
-                    <td>`+a[i].CenterName+`</td>
-                    <td>`+a[i].UTR_No+`</td>
+                    <td>`+a[i].name+`</td>
+                    <td>`+a[i].Account_purchase+`</td>
+                    <td>`+a[i].bank_name+`</td>
                     
                     </tr>
               `);
@@ -427,8 +439,9 @@ function myFunction_deposit() {
   $('#DepositoverLapData').append(`
                             <th>Sno</th>
                             <th>Rokadh Date</th>
-                            <th>Remark</th>
-                            <th>Quantity</th>
+                            <th>Name</th>
+                            <th>Invoice No</th>
+                            <th>Quantity ID</th>
                             <th>Rokadh ID</th>
                             <th>Amount</th>
                             `)
@@ -444,7 +457,8 @@ function myFunction_deposit() {
                     <tr>
                     <td>`+(i+1)+`</td>
                     <td>`+a[i].rokad_date+`</td>
-                    <td>`+a[i].remark+`</td>
+                    <td>`+a[i].account_name+`</td>
+                    <td>`+a[i].party_invoice_no+`</td>
                     <td>`+a[i].quantity+`</td>
                     <td>`+a[i].rokad_id+`</td>
                     <td>`+a[i].karch_amount+`</td>
@@ -482,13 +496,13 @@ function myFunction_expenses() {
   }
 //  console.log($('#ExpensesoverLapData').empty())
   $('#ExpensesoverLapData').append(`
-  <th>Sno</th>
+                              <th>Sno</th>
                             <th>Rokadh Date</th>
-                            <th>Remark</th>
-                            <th>Quantity</th>
+                            <th>Name</th>
+                            <th>Invoice No</th>
+                            <th>Quantity ID</th>
                             <th>Rokadh ID</th>
                             <th>Amount</th>
-                           
                             `)
   $.ajax({
         url: "<?php echo base_url(); ?>admin/report/ListmytotalExpenses",
@@ -503,7 +517,8 @@ function myFunction_expenses() {
                     <tr>
                     <td>`+(i+1)+`</td>
                     <td>`+a[i].rokad_date+`</td>
-                    <td>`+a[i].remark+`</td>
+                    <td>`+a[i].account_name+`</td>
+                    <td>`+a[i].party_invoice_no+`</td>
                     <td>`+a[i].quantity+`</td>
                     <td>`+a[i].rokad_id+`</td>
                     <td>`+a[i].karch_amount+`</td>
@@ -764,45 +779,34 @@ function convertNumberToWords(amount) {
     return words_string;
 }
 
-// findExpenses(a){
-// //   let leftAmounts = '';
-           
-// //   if(a.expense.expenses != null){
-
-
-// // if(a.deposit.deposit > a.expense.expenses){
-
-// //   leftAmounts = a.expense.expenses - a.deposit.deposit;
-// //   $('#leftAmountExpense').text(leftAmounts +" ₹/-  " )
-// // }else{
-// //     $('#deposit').text('कोई नाम नही है')
-// // }
-
-
-
-// // $('#expense').text(a.expense.expenses+' ₹/-  ' + convertNumberToWords(a.expense.expenses))
-// // }else{
-// //  $('#deposit').text('कोई नाम नही है')
-// // }
-
-// }
-
-
-// findDeposit(a){
-//   // let leftAmounts = '';
-//   // if(a.deposit.deposit != null){
-//   //     $('#deposit').text(a.deposit.deposit+' ₹/-  ' + convertNumberToWords(a.deposit.deposit))
-//   //   }else{
-//   //       $('#deposit').text('कोई जमा नही है')
-//   //   }
-// }
-
-
 var totalDeposit;
 var totalExpenses;
 var MyfinalDeposit;
 var MyfinalExpenses;
 
+$('#clickToShow').click(()=>{
+      // alert("")
+      hideMyData(1);
+    });
+$('#clickToHide').click(()=>{
+      // alert("")
+      hideMyData(0);
+    });
+
+
+    function hideMyData(status){
+      if(status){
+        $('.blackCSS').show();
+       $('#clickToShow').hide();
+        $('#clickToHide').show();
+      }else{
+        $('.blackCSS').hide();
+       $('#clickToShow').show();
+        $('#clickToHide').hide();
+        
+      }
+
+    }
 $('#search').click(()=>{
     $.ajax({
         url: "<?php echo base_url(); ?>admin/report/search",
@@ -822,12 +826,12 @@ $('#search').click(()=>{
           mykisanvahi(a)
           myFunction_expenese_var = 0
           $('#mykisanvahiamount').text(a.kisanvahi_Amount.Amount)
-          $('#mykisanvahiquantity').text(a.kisanvahi_Amount.Quantity);
+          $('#mykisanvahiquantity').text((parseFloat(a.kisanvahi_Amount.Quantity).toFixed(2)));
           $('#kisanvahiUTRNo').text(a.UTR_Amount.Amount);
-          $('#kisanvahiUTRNoQuantity').text(a.UTR_Amount.Quantity);
+          $('#kisanvahiUTRNoQuantity').text(parseFloat(a.UTR_Amount.Quantity).toFixed(2));
           $('#kisanvahiUTRNoCount').text(a.UTR_Amount.Count);
-          $('#getrokadtotalWeightdeposit').text(a.getrokadtotalWeightdeposit.quant);
-          $('#getrokadtotalWeightexpenses').text(a.getrokadtotalWeightexpenses.quant);
+          $('#kisanvahiUTRNoCount').text(a.UTR_Amount.Count);
+          $('#total_reg').text(a.totalMappedKisanVahi.kisan_id);
         },
         error: function () {
             alert("Error");
@@ -961,6 +965,7 @@ function fetchsearchReport(){
     $('#MyFinalExpenses').text('कोई नाम शेष नही है');
 
     }
+   
   }     
 
 

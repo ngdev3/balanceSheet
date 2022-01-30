@@ -13,7 +13,7 @@ if (!defined('BASEPATH'))
  * @company     thealternativeaccount Inc
  * @since		Version 1.0
  */
-class AccountName_mod extends CI_Model {
+class Invoice_mod extends CI_Model {
 
     /**
      * Constructor
@@ -136,9 +136,10 @@ class AccountName_mod extends CI_Model {
      */
     public function view($id){
        // pr($id); die;
-        $this->db->select('*');
-        $this->db->from('aa_account_name');
-        $this->db->where('account_id',$id);
+        $this->db->select('acn.*, acn.name as account_name, is.*');
+        $this->db->join('aa_account_name as acn','acn.account_id = is.account_id','left');
+        $this->db->where('is.account_id',$id);
+        $this->db->from('invoice_system is');
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->row();
@@ -148,11 +149,12 @@ class AccountName_mod extends CI_Model {
     }
 
     function add($data){
-        //  pr($data); die;
-       $this->db->insert('aa_account_name', $data);
+       $this->db->insert('invoice_system', $data);
           $last_id = $this->db->insert_id();
           return $last_id;			
       }
+
+
 
      /* 
      * update user details
@@ -163,7 +165,7 @@ class AccountName_mod extends CI_Model {
      */
     function edit($id = null, $userdata){  
         $this->db->where('account_id ',$id);
-        $this->db->update('aa_account_name',$userdata);
+        $this->db->update('invoice_system',$userdata);
         $affected = $this->db->affected_rows();
         if($affected>= 0){
             $res['status'] ='success';
@@ -427,18 +429,22 @@ class AccountName_mod extends CI_Model {
     }
 	
     function add_account($data){
-        $this->db->insert('aa_account_name', $data);
+        $this->db->insert('invoice_system', $data);
            $last_id = $this->db->insert_id();
            return $last_id;			
        }
     
        
 	function Billing_details($id){
-		$this->db->select("*");
-		// $this->db->join('aa_billing as p_name', 'p_name.billing_id=ab.purchaser_name','left');
-        $this->db->from("aa_account_name as ab");
-		$this->db->where('ab.account_id ',ID_decode($id));
-		$this->db->order_by('ab.account_id ','desc');
+		$this->db->select("ab.*, qual.name as quality_name, p_name.name as purchaser_name, p_name.*, s_name.name as seller_name, s_name.*, s_name.contact_person_number as cnt_number, s_name.account_name as cnt_name, site_name.name as site_name, site_name.*");
+		$this->db->join('aa_quality as qual', 'qual.quality_id=ab.quality','left');
+		$this->db->join('aa_billing as p_name', 'p_name.billing_id=ab.purchaser_name','left');
+		$this->db->join('aa_seller as s_name', 's_name.seller_id=ab.seller_name','left');
+		$this->db->join('aa_site as site_name', 'site_name.site_id=ab.site_name','left');
+        $this->db->from("aa_billing as ab");
+		
+		$this->db->where('ab.id',ID_decode($id));
+		$this->db->order_by('ab.id','desc');
         $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 return $query->row();
@@ -490,20 +496,29 @@ class AccountName_mod extends CI_Model {
         }
 		
        
-		return $query = $this->db->get('aa_account_name');
+		return $query = $this->db->get('invoice_system');
     }
+
+    function account_name(){
+        $this->db->select("ab.*, ab.updated_date as upd, acn.name as account_name");
+        $this->db->join('aa_account_name as acn', 'acn.account_id  = ab.account_id ','left');
+        $query = $this->db->get('invoice_system as ab')->result();
+      //  pr($query); die;
+        return $query;
+    }
+
 
     function get_Billing_data($parent_id = "") {  
 		
         $requestData = $this->input->post(null, true);
         $columns = array(
-            1 => 'account_id',
-            2 => 'name',
-            3 => 'contact_person_number',
+            1 => 'invoice_id',
+            2 => 'account_id',
         );
        
-        $this->db->select("ab.*");
-        $this->db->from("aa_account_name as ab");
+        $this->db->select("ab.*, acn.name as account_name");
+        $this->db->join('aa_account_name as acn', 'acn.account_id  = ab.account_id ','left');
+        $this->db->from("invoice_system as ab");
         if (isset($_GET['status'])) {
             $this->db->where("status =",$_GET["status"]);
         }
@@ -519,7 +534,7 @@ class AccountName_mod extends CI_Model {
             $column_name = $columns[@$requestData['order'][0]['column']];
             $this->db->order_by("$column_name", "$order");
         } else {
-            $this->db->order_by("account_id", "desc");
+            $this->db->order_by("invoice_id ", "desc");
         }
         if (@$requestData['length'] && $requestData['length'] != '-1') {
             $this->db->limit($requestData['length'], $requestData['start']);
@@ -527,7 +542,7 @@ class AccountName_mod extends CI_Model {
     
        
 		$query = $this->db->get();
-		// pr($query->result()); die;
+		//pr($query->num_rows()); die;
         if ($query->num_rows()) {
             return $query->result();
         } else {
@@ -559,7 +574,7 @@ class AccountName_mod extends CI_Model {
 
     function checkRandomEntery(){
         $this->db->select_max('billing_id');
-        $query = $this->db->get('aa_billing')->row_array();
+        $query = $this->db->get('aa_account_name')->row_array();
        // pr($query); die;
         if($query['billing_id'] == ''){
             return '1';
@@ -567,6 +582,29 @@ class AccountName_mod extends CI_Model {
             return $query['billing_id'];
 
         }
+    }
+
+    function get_invoice_details($id){
+        $this->db->select('is.updated_date as isupdated_date, is.*, acn.*');
+        $this->db->where('invoice_id',$id);
+        $this->db->join('aa_account_name as acn','acn.account_id = is.account_id','left');
+        return $this->db->get('invoice_system as is')->row_array();
+    }
+
+    function getTaxId(){
+        $this->db->select('taxinvoice_id');
+        $this->db->order_by('taxinvoice_id','desc');
+        return $this->db->get('invoice_system')->row();
+    }
+
+        //  pr($data); die;
+    function add_rokadh_entry($deposit_data, $expenses_data){
+        $this->db->insert('aa_rokad', $deposit_data);
+        $last_id['deposit_data'] = $this->db->insert_id();
+
+        $this->db->insert('aa_rokad', $expenses_data);
+        $last_id['expenses_data'] = $this->db->insert_id();
+
     }
 
 }
