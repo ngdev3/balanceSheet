@@ -106,7 +106,7 @@ class Account extends CI_Controller {
 				$isFoundAccountDetail = explode('_',$_POST['account_name']);
 
 				if($_POST['party_account_no'] != ''){
-					$party_account_no = explode('_',$_POST['party_account_no'])[1];
+					$party_account_no = explode('_',$_POST['party_account_no']);
 				}else{
 					$party_account_no = '';//explode('_',$_POST['party_account_no']);
 
@@ -117,30 +117,25 @@ class Account extends CI_Controller {
 				// pr($_POST); 
 				// die;
 				if(count($isFoundAccountDetail) == 2){
-					//pr('not found');
-					$userdata = array(
-						'name' =>$_POST['account_name'],
-						'added_by' => $this->session->userdata('userinfo')->id,
-						'status' => $_POST['status'],
-					);
-					$lastid = $this->Account_mod->add_account($userdata);
-					$userdata = array(
+						$userdata = array(
 						'rokad_date' =>$new_date,
-						'rokad_entry_no' => $_POST['khata_entry_no'],
+						'rokad_entry_no	' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
-						'party_account_no' => $party_account_no,
+
+						'party_account_no' => $party_account_no[1],
 						'party_invoice_no' => $_POST['party_invoice_no'],
 						'quantity' => $_POST['quantity'],
+
+
 						'type_of_account' => $_POST['type_of_account'],
 						'remark' => $_POST['remark'],
 						'account_name' => $_POST['account_name'],
 						'karch_amount' => $_POST['karch_amount'],
 						'added_by' => $this->session->userdata('userinfo')->id,
 						'status' => $_POST['status'],
-						'account_no' =>$lastid,					
+						'account_no'=>$isFoundAccountDetail[1],
 						'FY' =>fy()->FY,	
 						'product_type' =>fy()->product_type,					
-
 					);
 					$result = $this->Account_mod->add($userdata);
 					set_flashdata("success", "Account added successfully.");
