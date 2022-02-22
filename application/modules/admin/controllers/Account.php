@@ -106,13 +106,16 @@ class Account extends CI_Controller {
 				$isFoundAccountDetail = explode('_',$_POST['account_name']);
 
 				if($_POST['party_account_no'] != ''){
-					$party_account_no = explode('_',$_POST['party_account_no']);
+					$party_account_no = explode('_',$_POST['party_account_no'])[1];
 				}else{
 					$party_account_no = '';//explode('_',$_POST['party_account_no']);
 
 				}
 
-		
+				// pr($_POST); 
+				// pr($party_account_no); 
+				// pr($_POST); 
+				// die;
 				if(count($isFoundAccountDetail) == 2){
 					//pr('not found');
 					$userdata = array(
