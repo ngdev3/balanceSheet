@@ -1,10 +1,10 @@
 <main class="main-content bgc-grey-100">
                 <div id="mainContent">
                     <div class="container"  >
-                    <?php if(fy()->template_id  == '1'){ ?>
+                    <?php if(fy()->template_id  == '8'){ ?>
                         <a target="_blank" href="<?php echo base_url('admin/report/checkBalance');?>" class="btn cur-p btn-primary pull-left" style="color:white">Sync Rokadh</a>
                        <?php } ?>
-                        <?php if(fy()->template_id  == '6'){ ?>
+                        <?php if(fy()->template_id  == '9'){ ?>
                         <a target="_blank" href="<?php echo base_url('admin/report/Billing_check_template_6');?>" class="btn cur-p btn-primary pull-left" style="color:white">Sync Rokadh</a>
                        <?php } ?>
                                 <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
