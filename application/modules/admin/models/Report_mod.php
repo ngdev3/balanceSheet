@@ -1541,12 +1541,12 @@ function insertMyWeight($rokad_id, $quant){
 }
 
 function Billing_check(){
-    if(fy()->template_id !== '1'){
-        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2020-2021 C R Industries Allowed) </h1> <br>";
+    if(fy()->template_id !== '8'){
+        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2021-2022 C R Industries Allowed) </h1> <br>";
         return false;
     }
-    $start = strtotime('2020-06-07');
-    $end = strtotime('2021-03-31');
+    $start = strtotime('2021-04-01');
+    $end = strtotime('2022-03-31');
     echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
    // die;
 while($start <= $end){
@@ -1622,12 +1622,12 @@ while($start <= $end){
 }
 
 function Billing_check_template_6(){
-    if(fy()->template_id !== '6'){
-        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2020-2021 SARLA GUPTA Allowed) </h1> <br>";
+    if(fy()->template_id !== '9'){
+        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2021-2022 SARLA GUPTA Allowed) </h1> <br>";
         return false;
     }
-    $start = strtotime('2020-04-01');
-    $end = strtotime('2021-03-31');
+    $start = strtotime('2021-04-01');
+    $end = strtotime('2022-03-31');
     echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
    // die;
 while($start <= $end){
