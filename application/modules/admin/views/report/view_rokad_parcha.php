@@ -1,6 +1,12 @@
 <main class="main-content bgc-grey-100">
                 <div id="mainContent">
                     <div class="container"  >
+                    <?php if(fy()->template_id  == '1'){ ?>
+                        <a target="_blank" href="<?php echo base_url('admin/report/checkBalance');?>" class="btn cur-p btn-primary pull-left" style="color:white">Sync Rokadh</a>
+                       <?php } ?>
+                        <?php if(fy()->template_id  == '6'){ ?>
+                        <a target="_blank" href="<?php echo base_url('admin/report/Billing_check_template_6');?>" class="btn cur-p btn-primary pull-left" style="color:white">Sync Rokadh</a>
+                       <?php } ?>
                                 <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
                         <h4 class="c-grey-900 mT-10 mB-30 text-center" style="font-weight:900; text-decoration:underline">रोकड़ पर्चा</h4>
                         <?php echo form_open_multipart('', array('class' => '', 'id' => 'teamForm')); ?>

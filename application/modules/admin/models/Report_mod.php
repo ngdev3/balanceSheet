@@ -1501,4 +1501,202 @@ function publisher_mapping_deatils($id){
         }
     }
 
+    
+function getrokadtotalWeightdeposit($id){
+    $this->db->select('sum(quantity) as quant');
+    $this->db->where('FY', fy()->FY);
+    $this->db->where('type_of_account', 'deposit');
+    $this->db->where('product_type', fy()->product_type);
+    $this->db->where('account_no', $id);
+    $query = $this->db->get('aa_rokad');
+    $res = $query->result();
+   return  $query->row();
+
+}
+function getrokadtotalWeightexpenses($id){
+    $this->db->select('sum(quantity) as quant');
+    $this->db->where('FY', fy()->FY);
+    
+    $this->db->where('template_id', fy()->template_id);
+    $this->db->where('type_of_account', 'expenses');
+    $this->db->where('product_type', fy()->product_type);
+    $this->db->where('account_no', $id);
+    $query = $this->db->get('aa_rokad');
+    $res = $query->result();
+   return $query->row();
+   
+}
+
+function insertMyWeight($rokad_id, $quant){
+    $updateData			=	array(
+        'bill_no' => '',
+        'quantity'  =>  $quant,
+         );
+        $this->db->where('rokad_id', $rokad_id);	
+        $this->db->update('aa_rokad',$updateData);
+}
+
+function Billing_check(){
+    if(fy()->template_id !== '8'){
+        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2021-2022 C R Industries Allowed) </h1> <br>";
+        return false;
+    }
+    $start = strtotime('2021-04-01');
+    $end = strtotime('2022-03-31');
+    echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
+   // die;
+while($start <= $end){
+    $dor =  date('Y-m-d', $start);
+    $this->db->select('SUM(karch_amount) AS exp');
+    $this->db->where('rokad_date',$dor);
+    $this->db->where('type_of_account','expenses');
+    $this->db->where('template_id', fy()->template_id);
+    $this->db->where('FY', fy()->FY);
+    $this->db->where('product_type', fy()->product_type);
+    $query_exp = $this->db->get('aa_rokad');
+
+    $this->db->select('SUM(karch_amount) AS dep');
+    $this->db->where('rokad_date',$dor);
+    $this->db->where('type_of_account','deposit');
+     $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+    $query_dep = $this->db->get('aa_rokad');
+
+    // $resp = $this->db->from('aa_rokad');
+   // pr( $query_exp->ROW());
+    //pr( $query_dep->ROW());
+    $act  = $query_dep->ROW()->dep - $query_exp->ROW()->exp;
+    echo "<br> Date:- ". ($dor) ."<br><b> Shree Rokadh Bakee : ". $act."</b><br>";
+    $start = strtotime("1 day", $start);
+    $dor =  date('Y-m-d', $start);
+
+  //  echo "<br>".$dor;
+
+        $this->db->select('*');
+        $this->db->where('rokad_date',$dor);
+        $this->db->where('account_no','294');
+        $this->db->where('type_of_account','deposit');
+        $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+        $query_row_found = $this->db->get('aa_rokad');
+        if( $query_row_found->num_rows() > 0){
+
+            $updateData			=	array(
+                'karch_amount'  =>  $act,
+            );
+        $this->db->where('rokad_date',$dor);
+        $this->db->where('account_no','294');
+        $this->db->where('type_of_account','deposit');
+        $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);	
+        $this->db->update('aa_rokad',$updateData);
+        echo 'Client details updated successfully<br>';
+
+        } else {
+
+            $updateData			=	array(
+                'karch_amount'  =>  $act,
+                'FY'  =>  fy()->FY,
+                'product_type'  =>  fy()->product_type,
+                'template_id'  =>   fy()->template_id,
+                'rokad_date'  =>  $dor,
+                'account_no'  =>  '294',
+                'rokad_type'  =>  'kisanVahi',
+                'type_of_account'  =>  'deposit',
+                'account_name'  =>  'SHREE ROKADH BAKEE_294',
+                'added_by' => $this->session->userdata('userinfo')->id,
+            );
+            $this->db->insert("aa_rokad", $updateData);
+            echo 'Client details Inserted successfully<br>';
+
+        }
+
+   }
+}
+
+function Billing_check_template_6(){
+    if(fy()->template_id !== '9'){
+        echo "<h1>Selected Wrong Firm Finanical Year ( Only 2021-2022 SARLA GUPTA Allowed) </h1> <br>";
+        return false;
+    }
+    $start = strtotime('2020-04-01');
+    $end = strtotime('2021-03-31');
+    echo "<h1>Financial Year ".fy()->FY.'- - - Firm Name: '.fy()->template_name.'</h1> <br>';
+   // die;
+while($start <= $end){
+    $dor =  date('Y-m-d', $start);
+    $this->db->select('SUM(karch_amount) AS exp');
+    $this->db->where('rokad_date',$dor);
+    $this->db->where('type_of_account','expenses');
+    $this->db->where('template_id', fy()->template_id);
+    $this->db->where('FY', fy()->FY);
+    $this->db->where('product_type', fy()->product_type);
+    $query_exp = $this->db->get('aa_rokad');
+
+    $this->db->select('SUM(karch_amount) AS dep');
+    $this->db->where('rokad_date',$dor);
+    $this->db->where('type_of_account','deposit');
+     $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+    $query_dep = $this->db->get('aa_rokad');
+
+    // $resp = $this->db->from('aa_rokad');
+   // pr( $query_exp->ROW());
+    //pr( $query_dep->ROW());
+    $act  = $query_dep->ROW()->dep - $query_exp->ROW()->exp;
+    echo "<br> Date:- ". ($dor) ."<br><b> Shree Rokadh Bakee : ". $act."</b><br>";
+    $start = strtotime("1 day", $start);
+    $dor =  date('Y-m-d', $start);
+
+  //  echo "<br>".$dor;
+
+        $this->db->select('*');
+        $this->db->where('rokad_date',$dor);
+        $this->db->where('account_no','294');
+        $this->db->where('type_of_account','deposit');
+        $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);
+        $query_row_found = $this->db->get('aa_rokad');
+        if( $query_row_found->num_rows() > 0){
+
+            $updateData			=	array(
+                'karch_amount'  =>  $act,
+            );
+        $this->db->where('rokad_date',$dor);
+        $this->db->where('account_no','294');
+        $this->db->where('type_of_account','deposit');
+        $this->db->where('template_id', fy()->template_id);
+        $this->db->where('FY', fy()->FY);
+        $this->db->where('product_type', fy()->product_type);	
+        $this->db->update('aa_rokad',$updateData);
+        echo 'Client details updated successfully<br>';
+
+        } else {
+
+            $updateData			=	array(
+                'karch_amount'  =>  $act,
+                'FY'  =>  fy()->FY,
+                'product_type'  =>  fy()->product_type,
+                'template_id'  =>   fy()->template_id,
+                'rokad_date'  =>  $dor,
+                'account_no'  =>  '294',
+                'rokad_type'  =>  'kisanVahi',
+                'type_of_account'  =>  'deposit',
+                'account_name'  =>  'SHREE ROKADH BAKEE_294',
+                'added_by' => $this->session->userdata('userinfo')->id,
+            );
+            $this->db->insert("aa_rokad", $updateData);
+            echo 'Client details Inserted successfully<br>';
+
+        }
+
+   }
+}
+
+
 }
