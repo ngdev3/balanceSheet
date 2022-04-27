@@ -1,3 +1,30 @@
+
+<style id="table_style" type="text/css">
+    body
+    {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+    table
+    {
+        border: 4px solid #ccc;
+        border-collapse: collapse;
+    }
+    table th
+    {
+        background-color: #F7F7F7;
+        color: #333;
+        font-weight: bold;
+    }
+    table th, table td
+    {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+</style>
+            
+			
+
 <main class="main-content bgc-grey-100">
                 <div id="mainContent">
                     <div class="container-fluid">
@@ -5,104 +32,118 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                               <div> <a target="_blank" href="<?php echo base_url().'uploads/invoice_slips/'.$users->invoice_name;?>" id="back-btn" class="btn cur-p btn-primary pull-right"><i class="fa fa-download"></i></a></div>
-                                <a href="<?=base_url()?>admin/campaign" id="back-btn" class="btn cur-p btn-primary pull-right">Back</a>
+                                <?php echo form_open_multipart('', array('class' => '', 'id' => 'ciatyform_id',)); ?>
 
-                                    <!--<h4 class="c-grey-900 mB-20">Simple Table</h4>-->
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
+                               <div class="form-row">
+                                           
+                               <div class="form-group col-md-6">
+                                                    <label for="inputEmail4">Billing Date *</label>
+                                                   <?php  
+                                                        $name = @$result->date_of_bill;
+                                                        $postvalue = @$_POST['date_of_bill'];
+                                                        echo form_input(array('id'=>'datepicker','name' => 'date_of_bill', 'maxlength'=>'25', 'class' => 'form-control', 'placeholder' => 'Billing Date', 'value' => !empty($postvalue) ? $postvalue : $name )); ?>
+                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('date_of_bill'); ?></div></label>
+                                                </div>
+                                              <div class="form-group col-md-6">
+                                                  <label for="inputState2">Amount</label>
+                                                  <?php  $name = @$result->amount;
+                                                  $postvalue = @$_POST['amount'];
+//                                                    $val = !empty($postvalue)? $postvalue:$name;
+                                                  echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'amount','maxlength'=>'25', 'class' => 'form-control', 'id' => 'amount', 'placeholder' => 'Amount', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                               ?>
+                                                 <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('amount'); ?></div></label>
+                                              </div>
+                                          </div>
+                                          <div class="form-row">
+                                           
+                                          <div class="form-group col-md-6">
+                                                    <label for="inputState2">Quantity. *</label>
+                                                    <?php  $name = @$result->quantity;
+                                                    $postvalue = @$_POST['quantity'];
+                                                    echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'quantity','maxlength'=>'25', 'class' => 'form-control', 'id' => 'quantity', 'placeholder' => 'Quantity', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                                 ?>
+                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('quantity'); ?></div></label>
+                                                </div>
+                                                          <div class="form-group col-md-6">
+                                                              <label for="inputState2">Rate</label>
+                                                              <?php  $name = @$result->rate;
+                                                              $postvalue = @$_POST['rate'];
+            //                                                    $val = !empty($postvalue)? $postvalue:$name;
+                                                              echo form_input(array('type' =>'number' , 'step'=>'0.01', 'min' =>'0', 'name' => 'rate','maxlength'=>'25', 'class' => 'form-control', 'id' => 'rate', 'placeholder' => 'Rate', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                                           ?>
+                                                             <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('rate'); ?></div></label>
+                                                          </div>
+                                                      </div>
+                                                      <button type="submit" class="btn btn-primary"> Submit </button>
+                                                    </form>
+                                                    <!-- <a href="<?=base_url()?>admin/campaign" id="back-btn" class="btn cur-p btn-primary pull-right">Back</a> -->
+                                                    
+                                                    <!--<h4 class="c-grey-900 mB-20">Simple Table</h4>-->
+                                                    <table class="table" id="printTable" border="2" cellpadding="5">
+                                <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
+
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="table_bg" scope="col">Serial No</th>
                                                 <th class="table_bg" scope="col">Billing Date</th>
-                                                <th scope="col"><?php echo ucfirst($users->billing_date);?></th>
+                                                <th class="table_bg" scope="col">Rate</th>
+                                                <th class="table_bg" scope="col">Amount</th>
+                                                <th class="table_bg" scope="col">Quantity</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody>    
+                                            <?php if(!empty($finalarr)){ ?>
+                                           <?php foreach($finalarr as $num=>$values) { ?>
                                             <tr>
-                                                <th  class="table_bg" scope="row">Truck No.</th>
-                                                <td><?php echo $users->truck_no;?></td>
+                                                <td><?php echo $num+1;?></td>
+                                               <td  class="table_bg" scope="row"><?php echo $_POST['date_of_bill']; ?></td>
+                                               <td><?php echo $todays_rate;?></td>
+                                               <td><?php echo $values['amount'];?></td>
+                                               <td><?php echo $values['quant'];?></td>
                                             </tr>
+                                            
+                                            <?php }}?>
+                                            <?php if(!empty($amount_sum)){ ?>
                                             <tr>
-                                                <th class="table_bg" scope="row">Challan No</th>
-                                                <td><?php echo $users->challan_no;?></td>
+                                                <th  class="table_bg" scope="row"><?php echo ''; ?></th>
+                                                <th  class="table_bg" scope="row"><?php echo ''; ?></th>
+                                                <th  class="table_bg" scope="row"><?php echo 'Total'; ?></th>
+                                               <th> <?php echo $amount_sum;?></th>
+                                               <th><?php echo $quant_sum;?></th>
                                             </tr>
-                                            <tr>
-                                                <th class="table_bg" scope="row">Bill No</th>
-                                                <td><?php echo $users->bill_no;?></td>
-                                            </tr>
-
-                                            <tr>
-                                                <th class="table_bg" scope="row">Quality</th>
-                                                <td><a href="<?php echo base_url('master/quality/view/').Id_encode($users->quality);?>"><?php echo $users->quality_name;?></a></td>
-                                            </tr>
-
-                                            <tr>
-                                                <th class="table_bg" scope="row">Product Quantity </th>
-                                                <td><?php echo ($users->quantity);?></td>
-                                            </tr>
-                                            <tr>
-                                                <th class="table_bg" scope="row">Purchaser Name</th>
-                                                <!-- <td><?php echo $users->purchaser_name;?></td> -->
-                                                <td><a href="<?php echo base_url('master/purchaser/view/').Id_encode($users->purchaser_id);?>"><?php echo $users->purchaser_name;?></a></td>
-                                            </tr>
-                                            <tr>
-                                                <th class="table_bg" scope="row">Purchaser Rate</th>
-                                                <td><?php echo $users->purchaser_rate;?></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Purchaser Amount</th>
-                                                <td><?php echo $users->purchaser_amount;?></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Site Name</th>
-                                                <td><a href="<?php echo base_url('master/site/view/').Id_encode($users->site_id);?>"><?php echo $users->name;?></a></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Seller Name</th>
-                                                <td><a href="<?php echo base_url('master/site/view/').Id_encode($users->seller_id);?>"><?php echo $users->seller_name;?></a></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Seller Rate </th>
-                                                <td><?php echo $users->seller_rate;?></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Seller Amount</th>
-                                                <td><?php echo $users->seller_amount;?></td>
-                                            </tr>
-											<tr>
-                                                <th class="table_bg" scope="row">Purchaser Amount</th>
-                                                <td><?php echo $users->purchaser_amount;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">Gross Profit (GP)</th>
-                                                <td><?php echo $users->profit;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">CGST </th>
-                                                <td><?php echo $users->cgst;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">SGST</th>
-                                                <td><?php echo $users->sgst;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">Amount After GST</th>
-                                                <td><?php echo $users->gst_amount;?></td>
-                                            </tr>
-                                            <tr>
-											    <th class="table_bg" scope="row">Status</th>
-                                                <td><?php echo $users->status;?></td>
-                                            </tr>
-
-
-
-
-
+                                            <?php }?>
                                         </tbody>
                                     </table>
+                                    <button type="button" class="btn btn-primary"> Store To DB </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </main>
-			
+            
+			<script>
+                $( function() {
+    $( "#datepicker" ).datepicker({ 
+        
+        dateFormat: "dd-mm-yy",
+        setDate:new Date()
+        
+        });
+  } );
+
+
+  function printData()
+{
+    var abc = <?php $finalarr; ?>
+    console.log(abc)
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+  // newWin.close();
+}
+
+            </script>
+            
+ 

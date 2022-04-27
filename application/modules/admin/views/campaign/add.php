@@ -88,16 +88,13 @@ input[type=submit] {
                                                <label for="inputState2">Center Type *</label>
                                                <select id="center_type" class="form-control" name="rokad_type">
                                                       <option value="" selected >Select Center</option>
-                                                      <!-- <option value="1" >शाहाबाद मंडी प्रथम</option>
+                                                      <option value="1" >शाहाबाद मंडी प्रथम</option>
                                                        <option value="2" >शाहाबाद मंडी द्विती</option>
                                                        <option value="3" >FCS जमुरा-टोडरपुर</option>
                                                        <option value="pcf" >PCF शाहाबाद - शाहाबाद नगर पा. प.</option>
                                                        <option value="reva" >रेवमुरादपुर</option>
                                                        <option value="upss" >यूपीएसएस ( UPSS )</option>
-                                                       <option value="todarpur_hardoi" >हरदोई टोडरपुर</option> -->
-                                                       <?php if(!empty($center_list)){ foreach($center_list as $x => $y){?>
-                                                        <option value="<?php echo $y->center_id; ?>" ><?php echo $y->name."_".$y->center_id; ?></option>
-                                                        <?php }};?>
+                                                       <option value="todarpur_hardoi" >हरदोई टोडरपुर</option>
                                                   </select>                                         
                                            <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('rokad_type'); ?></div></label>
                                            </div> 

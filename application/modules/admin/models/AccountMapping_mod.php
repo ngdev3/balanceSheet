@@ -1151,31 +1151,6 @@ function publisher_mapping_deatils($id){
         }
 
 }
-function center_list(){
-    $this->db->select("*");
-    $this->db->from("aa_center_name");
-    $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        }
-        else{
-            return false;
-        }
-
-}
-
-function origin_type(){
-    $this->db->select("*");
-    $this->db->from("aa_origin_type");
-    $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        }
-        else{
-            return false;
-        }
-
-}
 
         function account_mapping(){
           //  pr($_POST);  die;
@@ -1220,6 +1195,7 @@ function origin_type(){
                         'status_rec' => 'done',
                         'added_date' =>  date("Y-m-d"),
                         'FY' =>fy()->FY,	
+						'template_id' =>fy()->template_id,	
                         'product_type' =>fy()->product_type,
                         
                     );
@@ -1244,7 +1220,9 @@ function origin_type(){
                         'status' => '',//$_POST['status'],
                         'status_rec' => 'done',
                         'added_date' =>  date("Y-m-d"),
-                        'FY' =>fy()->FY,	
+                        'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
+
                         'product_type' =>fy()->product_type,
                     );
                     $this->db->update('kisanvahidata', $userdata, array('Kisan_ID'=>$_POST['checknow']));
@@ -1261,6 +1239,8 @@ function origin_type(){
             $this->db->select("*");
             $this->db->where('account_no', $up);
             $this->db->where('FY', fy()->FY);
+            $this->db->where('template_id', fy()->template_id);
+
             $this->db->where('product_type', fy()->product_type);
             $this->db->from("kisanvahidata");
             $query = $this->db->get();
@@ -1287,6 +1267,8 @@ function origin_type(){
             }
             $this->db->join('aa_account_name acn','acn.account_id = kisanvahidata.account_no','left');
             $this->db->where('FY', fy()->FY);
+            $this->db->where('template_id', fy()->template_id);
+
             $this->db->where('product_type', fy()->product_type);
             $this->db->from("kisanvahidata");
             $query = $this->db->get();

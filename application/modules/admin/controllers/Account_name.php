@@ -72,38 +72,20 @@ class Account_name extends CI_Controller {
         if (isPostBack()) {
             
             $this->form_validation->set_rules('account_name', 'Account Name', 'trim|required');
-			$this->form_validation->set_rules('state_code', 'State Code', 'trim');
-			$this->form_validation->set_rules('state', 'State', 'trim');
-			$this->form_validation->set_rules('purchaser_address', 'Purchase Address', 'trim');
-			$this->form_validation->set_rules('purchaser_gst_no', 'purchase GST No', 'trim');
-			$this->form_validation->set_rules('email_id', 'Email Id', 'trim');
-			$this->form_validation->set_rules('bank_name', 'Bank Name', 'trim');
-			$this->form_validation->set_rules('ifsc_code', 'IFSC Code', 'trim');
-			$this->form_validation->set_rules('purchaser_account_no', 'Account No', 'trim');
-			$this->form_validation->set_rules('contact_person_name', 'Contact Person Name', 'trim');
+			$this->form_validation->set_rules('contact_person_number', 'Mobile No', 'trim');
 			$this->form_validation->set_rules('status', 'Status', 'trim|required');
             
 			if ($this->form_validation->run() == false) {
             } else {
 
 				
-				
 				$userdata = array(
 					'name' => $_POST['account_name'],
-					'state_code' => $_POST['state_code'],
-					'state' => $_POST['state'],
-					'purchaser_address' => $_POST['purchaser_address'],
-					'purchaser_gst_no' => $_POST['purchaser_gst_no'],
-					'email_id' => $_POST['email_id'],
-					'bank_name' => $_POST['bank_name'],
-					'ifsc_code' => $_POST['ifsc_code'],
-					'purchaser_account_no' => $_POST['purchaser_account_no'],
-					'contact_person_name' => $_POST['contact_person_name'],
+					'contact_person_number' => $_POST['contact_person_number'],
 					'added_by' => $this->session->userdata('userinfo')->id,
 					'status' => $_POST['status'],
 					'updated_date' =>  date("Y-m-d"),
 				);
-				// pr($userdata); die;
 				$result = $this->AccountName_mod->add($userdata);
 				set_flashdata('success', 'Account Name Added successfully');
 				redirect('/admin/account_name');     
@@ -120,33 +102,16 @@ class Account_name extends CI_Controller {
 	
 	function edit($id = null){
 		$city_id = ID_decode($id);
-		// pr($_POST); die;
         if (isPostBack()) {
             $city_id = ID_decode($id);
 			$this->form_validation->set_rules('account_name', 'Account Name', 'trim|required');
-			$this->form_validation->set_rules('state_code', 'State Code', 'trim');
-			$this->form_validation->set_rules('state', 'State', 'trim');
-			$this->form_validation->set_rules('purchaser_address', 'Purchase Address', 'trim');
-			$this->form_validation->set_rules('purchaser_gst_no', 'purchase GST No', 'trim');
-			$this->form_validation->set_rules('email_id', 'Email Id', 'trim');
-			$this->form_validation->set_rules('bank_name', 'Bank Name', 'trim');
-			$this->form_validation->set_rules('ifsc_code', 'IFSC Code', 'trim');
-			$this->form_validation->set_rules('purchaser_account_no', 'Account No', 'trim');
-			$this->form_validation->set_rules('contact_person_name', 'Contact Person Name', 'trim');
+			$this->form_validation->set_rules('contact_person_number', 'Mobile No', 'trim');
 			$this->form_validation->set_rules('status', 'Status', 'trim|required');
             if ($this->form_validation->run() == FALSE) {
             } else {
 				$userdata = array(
 					'name' => $_POST['account_name'],
-					'state_code' => $_POST['state_code'],
-					'state' => $_POST['state'],
-					'purchaser_address' => $_POST['purchaser_address'],
-					'purchaser_gst_no' => $_POST['purchaser_gst_no'],
-					'email_id' => $_POST['email_id'],
-					'bank_name' => $_POST['bank_name'],
-					'ifsc_code' => $_POST['ifsc_code'],
-					'purchaser_account_no' => $_POST['purchaser_account_no'],
-					'contact_person_name' => $_POST['contact_person_name'],
+					'contact_person_number' => $_POST['contact_person_number'],
 					'added_by' => $this->session->userdata('userinfo')->id,
 					'status' => $_POST['status'],
 					'updated_date' =>  date("Y-m-d"),
@@ -156,7 +121,7 @@ class Account_name extends CI_Controller {
 				redirect('/admin/account_name');
             }
         }
-		$data['result'] = $this->AccountName_mod->view($city_id);  
+		$data['result'] = $this->AccountName_mod->view($city_id);    
 		$data['page'] = 'accountname/add';
 		$data['title'] = "Track (The Rest Accounting Key) || Edit";
 		$this->load->view('layout', $data);
@@ -214,11 +179,11 @@ class Account_name extends CI_Controller {
                 $nestedData[]   =   $row["account_id"];
 				$nestedData[]   =   $row["name"];
 				$nestedData[]   =   $row["contact_person_number"];
-                // $nestedData[]   =   $row;
+                // $nestedData[]   =   $row["site_name"];
                 // $nestedData[]   =   $row["gst_amount"];
 
 				$nestedData[]   =   $this->load->view("accountname/_action", array("row" => $row), true);
-				// pr($row); 
+				// pr($nestedData); die;
                 $data[]         =   $nestedData;
             }
         }

@@ -1,13 +1,13 @@
 <main class="main-content bgc-grey-100">
                 <div id="mainContent">
                     <div class="container"  >
-                    <?php if(fy()->template_id  == '8'){ ?>
+                        <?php if(fy()->template_id  == '1'){ ?>
                         <a target="_blank" href="<?php echo base_url('admin/report/checkBalance');?>" class="btn cur-p btn-primary pull-left" style="color:white">Sync Rokadh</a>
                        <?php } ?>
-                        <?php if(fy()->template_id  == '9'){ ?>
+                        <?php if(fy()->template_id  == '6'){ ?>
                         <a target="_blank" href="<?php echo base_url('admin/report/Billing_check_template_6');?>" class="btn cur-p btn-primary pull-left" style="color:white">Sync Rokadh</a>
                        <?php } ?>
-                                <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
+                        <a onclick="printData()" id="back-btn" class="btn cur-p btn-primary pull-right" style="color:white">Print</a>
                         <h4 class="c-grey-900 mT-10 mB-30 text-center" style="font-weight:900; text-decoration:underline">रोकड़ पर्चा</h4>
                         <?php echo form_open_multipart('', array('class' => '', 'id' => 'teamForm')); ?>
                         <div class="form-row">
@@ -32,7 +32,7 @@
                                            </div> 
                                            </div> 
                                            </form>
-                                           <?php if(!empty($jama)){?>
+                                           <?php if(!empty($jama) || !empty($naam)){?>
                         <div class="container" id="printTable" style="text-align: center; border: 4px solid black;">
                                               <div style="text-align:center;"><img width="50" height="50" src="https://i.pinimg.com/originals/df/7a/c3/df7ac32ca67a39a812bbe7b7b69f1a28.jpg" alt="" srcset=""></div>
                             <div class="col-md-12">
@@ -58,11 +58,11 @@
     <div class="grid-child purple">
                 <?php $sums += $val->karch_amount; echo $val->karch_amount;?>
     </div>
-
+    
     <div class="grid-child green">
-                <?php echo $val->account_name;?><i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
+                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
     </div>
-  
+   
     </div>
         <?php }
     }?>
@@ -80,7 +80,7 @@
     </div>
     </div>
     <div class="col-6" style="width:50%">
-      <p class="text-center" style="font-weight:900; font-size:20px; text-decoration:underline">नाम</p>
+      <p class="text-center" style="font-weight:900; font-size:8px; text-decoration:underline">नाम</p>
       <?php if(!empty($jama)) { $sum = 0; foreach($jama as $key=>$val){?>
         <div class="grid-container">
 
@@ -142,8 +142,7 @@
    newWin.print();
   // newWin.close();
 }
-   
- 
+  
 function deleteSingle(a,b){
     var txt;
     console.log(a,b)

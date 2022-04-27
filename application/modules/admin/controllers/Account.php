@@ -89,6 +89,8 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('account_name', 'Account name', 'trim|required');
 			$this->form_validation->set_rules('type_of_account', 'account_type', 'trim|required');
 
+			$this->form_validation->set_rules('bill_no', 'Bill no', 'trim');
+			$this->form_validation->set_rules('quantity', 'Quantity', 'trim');
 			$this->form_validation->set_rules('remark', 'Remark', 'trim');
 			
             $this->form_validation->set_rules('karch_amount', 'Final Amount', 'trim|required');
@@ -104,29 +106,39 @@ class Account extends CI_Controller {
 		
 				$new_date = date('Y-m-d', $middle);
 				$isFoundAccountDetail = explode('_',$_POST['account_name']);
-
-				if($_POST['party_account_no'] != ''){
-					$party_account_no = explode('_',$_POST['party_account_no']);
-				}else{
-					$party_account_no = '';//explode('_',$_POST['party_account_no']);
-
-				}
-
-				// pr($_POST); 
-				// pr($party_account_no); 
-				// pr($_POST); 
-				// die;
-				if(count($isFoundAccountDetail) == 2){
-						$userdata = array(
+				if(count($isFoundAccountDetail) == 1){
+					// pr('not found');
+					$userdata = array(
+						'name' =>$_POST['account_name'],
+						'added_by' => $this->session->userdata('userinfo')->id,
+						'status' => $_POST['status'],
+					);
+					$lastid = $this->Account_mod->add_account($userdata);
+					$userdata = array(
 						'rokad_date' =>$new_date,
+							'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
+						'rokad_entry_no' => $_POST['khata_entry_no'],
+						'challan_no' => $_POST['challan_no'],
+						'type_of_account' => $_POST['type_of_account'],
+						'remark' => $_POST['remark'],
+						'account_name' => $_POST['account_name'],
+						'karch_amount' => $_POST['karch_amount'],
+						'added_by' => $this->session->userdata('userinfo')->id,
+						'status' => $_POST['status'],
+						'account_no' =>$lastid,					
+						'FY' =>fy()->FY,	
+						'template_id' =>fy()->template_id,
+						'product_type' =>fy()->product_type,					
+
+					);
+				}else{
+					$userdata = array(
+						'rokad_date' =>$new_date,
+						'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no	' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
-
-						'party_account_no' => $party_account_no[1],
-						'party_invoice_no' => $_POST['party_invoice_no'],
-						'quantity' => $_POST['quantity'],
-
-
 						'type_of_account' => $_POST['type_of_account'],
 						'remark' => $_POST['remark'],
 						'account_name' => $_POST['account_name'],
@@ -134,41 +146,17 @@ class Account extends CI_Controller {
 						'added_by' => $this->session->userdata('userinfo')->id,
 						'status' => $_POST['status'],
 						'account_no'=>$isFoundAccountDetail[1],
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,					
+
+
 					);
-					$result = $this->Account_mod->add($userdata);
-					set_flashdata("success", "Account added successfully.");
-					redirect('/admin/account/deposite');    
-				}else{
-
-					set_flashdata("error", "Account Name Does not Exists");
-					redirect('/admin/account/deposite');    
-
-					// $userdata = array(
-					// 	'rokad_date' =>$new_date,
-					// 	'rokad_entry_no	' => $_POST['khata_entry_no'],
-					// 	'challan_no' => $_POST['challan_no'],
-
-					// 	'party_account_no' => $party_account_no[1],
-					// 	'party_invoice_no' => $_POST['party_invoice_no'],
-					// 	'quantity' => $_POST['quantity'],
-
-
-					// 	'type_of_account' => $_POST['type_of_account'],
-					// 	'remark' => $_POST['remark'],
-					// 	'account_name' => $_POST['account_name'],
-					// 	'karch_amount' => $_POST['karch_amount'],
-					// 	'added_by' => $this->session->userdata('userinfo')->id,
-					// 	'status' => $_POST['status'],
-					// 	'account_no'=>$isFoundAccountDetail[1],
-					// 	'FY' =>fy()->FY,	
-					// 	'product_type' =>fy()->product_type,					
-
-
-					// );
 				}
-				 
+				$result = $this->Account_mod->add($userdata);
+			//	$result = $this->Account_mod->getCurrentDataForExpenses($userdata);
+				set_flashdata("success", "Account added successfully.");
+				redirect('/admin/account/deposite');     
             }
         }
 		
@@ -186,8 +174,10 @@ class Account extends CI_Controller {
             $this->form_validation->set_rules('khata_entry_no', 'Khata Entry No', 'trim|required');
             $this->form_validation->set_rules('challan_no', 'Challan No.', 'trim|required');
             $this->form_validation->set_rules('account_name', 'Account name', 'trim|required');
-			$this->form_validation->set_rules('type_of_account', 'type_of_account', 'trim|required');
+			$this->form_validation->set_rules('type_of_account', 'account_type', 'trim|required');
 			$this->form_validation->set_rules('remark', 'Remark', 'trim');
+			$this->form_validation->set_rules('bill_no', 'Bill no', 'trim');
+			$this->form_validation->set_rules('quantity', 'Quantity', 'trim');
             $this->form_validation->set_rules('karch_amount', 'Final Amount', 'trim|required');
 			$this->form_validation->set_rules('status', 'Status', 'trim|required');
 
@@ -200,14 +190,6 @@ class Account extends CI_Controller {
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d', $middle);
 				$isFoundAccountDetail = explode('_',$_POST['account_name']);
-				// if($_POST['party_account_no'])
-				if(!empty($_POST['party_account_no'])){
-					$party_account_no = explode('_',$_POST['party_account_no']);
-				}else{
-					$party_account_no = '';//explode('_',$_POST['party_account_no']);
-
-				}
-
 				if(count($isFoundAccountDetail) == 1){
 					$userdata = array(
 						'name' =>$_POST['account_name'],
@@ -217,44 +199,39 @@ class Account extends CI_Controller {
 					$lastid = $this->Account_mod->add_account($userdata);
 					$userdata = array(
 						'rokad_date' =>$new_date,
+						'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
 						'type_of_account' => $_POST['type_of_account'],
 						'remark' => $_POST['remark'],
-						// 'rokad_type' => $_POST['rokad_type'],
+						'rokad_type' => $_POST['rokad_type'],
 						'account_name' => $_POST['account_name'],
 						'karch_amount' => $_POST['karch_amount'],
 						'added_by' => $this->session->userdata('userinfo')->id,
-
-						'party_account_no' => $party_account_no[1],
-						'party_invoice_no' => $_POST['party_invoice_no'],
-						'quantity' => $_POST['quantity'],
-
-
 						'status' => $_POST['status'],
 						'account_no' =>$lastid,				
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,						
 					);
 				}else{
 					$userdata = array(
 						'rokad_date' =>$new_date,
+						'bill_no	' => $_POST['bill_no'],
+						'quantity	' => $_POST['quantity'],
 						'rokad_entry_no	' => $_POST['khata_entry_no'],
 						'challan_no' => $_POST['challan_no'],
 						'type_of_account' => $_POST['type_of_account'],
 						'remark' => $_POST['remark'],
-						// 'rokad_type' => $_POST['rokad_type'],
+						'rokad_type' => $_POST['rokad_type'],
 						'account_name' => $_POST['account_name'],
 						'karch_amount' => $_POST['karch_amount'],
 						'added_by' => $this->session->userdata('userinfo')->id,
-
-						'party_account_no' => $party_account_no[1],
-						'party_invoice_no' => $_POST['party_invoice_no'],
-						'quantity' => $_POST['quantity'],
-
 						'status' => $_POST['status'],
 						'account_no'=>$isFoundAccountDetail[1],
 						'FY' =>fy()->FY,	
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,					
 					);
 				}

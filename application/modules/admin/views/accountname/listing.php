@@ -82,15 +82,15 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         "processing": true,
         "serverSide": true,
         "columns": [{
-                "orderable": true
+                "orderable": false
+            }, {
+                "orderable": false
             }, {
                 "orderable": true
             }, {
-                "orderable": true
+                "orderable": false
             }, {
-                "orderable": true
-            }, {
-                "orderable": true
+                "orderable": false
             }
             ],
         "lengthMenu": [
@@ -105,11 +105,11 @@ $QUERY_STRING = $_SERVER['QUERY_STRING'];
         "language": {"search": "My search: ", "lengthMenu": "_MENU_ Records", "paginate": {"previous": "Prev", "next": "Next", "last": "Last", "first": "First"}},
         "columnDefs": [{'className': 'control', 'orderable': false, 'targets': 0},
             {'orderable': false, 'targets': [-1]},
-            {"targets": [0], "orderable": false, "searchable": true},
+            {"targets": [0], "orderable": false, "searchable": false},
             {"targets": [1], "orderable": true, "searchable": true},
-            {"targets": [2], "orderable": false, "searchable": true},
-            {"targets": [3], "orderable": false, "searchable": true},
-            {"targets": [4], "orderable": false, "searchable": true},
+            {"targets": [2], "orderable": false, "searchable": false},
+            {"targets": [3], "orderable": false, "searchable": false},
+            {"targets": [4], "orderable": false, "searchable": false},
         ],
         "ajax": {
             url: "<?php echo base_url(); ?>admin/account_name/view_all?<?php echo $QUERY_STRING; ?>", // json datasource

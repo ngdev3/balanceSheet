@@ -325,13 +325,15 @@ class Setting extends CI_Controller {
 		
 		if (isPostBack()) {
 			// pr($_POST);
-			// die;
+			//die;
 			$userdata = array(
-				'template_id' =>$_POST['template_fy'],
+				'default_firm' =>$_POST['template_fy'],
 			);
 			$data['fy']= $this->Setting_mod->add_fy($userdata);
+			validate_admin_login();
+			// pr($this->session->all_userdata('userinfo'));
+			// die;
 			set_flashdata('success', 'Financial Year Loaded Successfully');
-			redirect('/admin/setting/change_fy');
 		}
         $data['page'] = 'setting/view';
         $data['title'] = "Track (The Rest Accounting Key) || Billing View";

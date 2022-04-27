@@ -26,50 +26,10 @@ class Dashboard extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Auth_mod');
-        $this->load->model('AccountMapping_mod');
-
        //  is_adminprotected();
        //validate_admin_login();
         validate_admin_login();
     }
-
-    function action(){
-      $this->load->library("excel");
-      $object = new PHPExcel();
-    
-      $object->setActiveSheetIndex(0);
-    
-      $table_columns = array("Name", "Address", "Gender", "Designation", "Age");
-    
-      $column = 0;
-    
-      foreach($table_columns as $field)
-      {
-       $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-       $column++;
-      }
-    
-      $employee_data = $this->AccountMapping_mod->fetch_data();
-    
-      $excel_row = 2;
-    
-      foreach($employee_data as $row)
-      {
-       $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Name");
-       $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, "address");
-       $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, "address");
-       $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, "designation");
-       $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, "age");
-       $excel_row++;
-      }
-    
-      $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-      header('Content-Type: application/vnd.ms-excel');
-      header('Content-Disposition: attachment;filename="Employee Data.xls"');
-      $object_writer->save('php://output');
-     }
-    
-    
 	
 	/**
      * End of function
@@ -101,20 +61,19 @@ class Dashboard extends MY_Controller {
         $data['FinalAmountPaddy']   = $this->Auth_mod->RealTimeDataCount()['FinalAmountPaddy'];
         $data['TotalKatti']   = $this->Auth_mod->RealTimeDataCount()['TotalKatti'];
         $data['maxpurchaser']   = $this->Auth_mod->RealTimeDataCount()['maxpurchaser'];
-        // $data['RealTimeDataCount']   = $this->Auth_mod->RealTimeDataCount();
-        // $totallength = ($data['RealTimeDataCount']['first']);
-        
-        // $x = 0;
-        // for($i=0;$i<count($totallength);$i++){
-        //   $x += (($data['RealTimeDataCount']['first'])[$i]->totalQuant);
-        // }
-
-        $data['totalrealtimeCenterSum'] = '';
-       $data['ActiveParcha']   = $this->Auth_mod->RealTimeActiveParcha();
-       $data['todays_KisanVahi']   = $this->Auth_mod->todays_KisanVahi();
-       $data['total_runningcampaigns']   = 50;
-       $data['page'] = 'dashboard/site_dashboard';
-        $data['title'] = 'Track (The Rest Accounting Key) || Dashboard';
+        $data['first']   = $this->Auth_mod->RealTimeDataCount()['first'];
+        $data['second']   = $this->Auth_mod->RealTimeDataCount()['second'];
+        $data['jamura']   = $this->Auth_mod->RealTimeDataCount()['jamura'];
+        $data['pcf']   = $this->Auth_mod->RealTimeDataCount()['pcf'];
+        $data['reva']   = $this->Auth_mod->RealTimeDataCount()['reva'];
+        $data['upss']   = $this->Auth_mod->RealTimeDataCount()['upss'];
+        $data['todharpur']   = $this->Auth_mod->RealTimeDataCount()['todharpur'];
+       // $data['FinalWeight']   = $data['total_weight']->FinalWeight;
+    //   pr($data); die;
+        $data['total_runningcampaigns']   = 50;
+        // pr($this->session->all_userdata()); die;
+        $data['page'] = 'dashboard/site_dashboard';
+        $data['title'] = 'Track (The Rest Accounting Key) ||p Dashboard';
         $this->load->view('layout',$data);
     }
     public function profilesss() {
@@ -123,9 +82,6 @@ class Dashboard extends MY_Controller {
         $this->load->view('layout',$data);
     }
 
-    public function getmylatestkisanvahi(){
-      echo json_encode($this->Auth_mod->todays_KisanVahi());
-    }
     public function sendWhatsapp(){
 
       // pr($_POST); die;
@@ -170,16 +126,39 @@ class Dashboard extends MY_Controller {
     
 
     public function mydata(){
-      // $a = fy() ;
-      // pr($a);
-      // die;
+        
+    //     $file = fopen("uploads/abc.csv","r");
+    //     $data = [];
+    //     $i = 0;
+    //     while(!feof($file))
+    //     {
+    //         $data[] = fgetcsv($file);
+    //     }
+    //   pr($data);
+    //    for($j = 0 ; $j < count($data) ; ){
+    //         $date = str_replace('/', '-', $data[$j][12]);
+    //         $updateData			=	array(
+    //             //'PFMS_Status' =>  $data[$j][7],
+    //             //'Ack_Status' =>  $data[$j][10],
+    //             //'Payment_Status' =>  $data[$j][11],
+    //             'Payment_Date' => date('d-m-Y',strtotime($date)),
+    //             //'Purchase_ID' =>  $data[$j][0],
+    //              );
+    //                 // pr($updateData); die;                  
+    //             $this->db->where('Farmer_ID', $data[$j][1]);
+    //             $this->db->where('FY', fy()->FY);
+    //             $this->db->where('product_type', fy()->product_type);	
+    //             $this->db->update('kisanvahidata',$updateData);
+    //         $j++;
+    //    }
+    //     die;
         // Check form submit or not 
         if($this->input->post('upload') != NULL ){ 
            $data = array(); 
            if(!empty($_FILES['file']['name'])){ 
              // Set preference 
                 $config['upload_path'] = 'uploads/'; 
-                $config['allowed_types'] = 'csv'; ///
+                $config['allowed_types'] = 'csv'; 
                // $config['encrypt_name'] = true; 
                 $config['max_size'] = '1000'; // max_size in kb 
                 $config['file_name'] = $_FILES['file']['name'];
@@ -200,28 +179,22 @@ class Dashboard extends MY_Controller {
                     {
                         $data[] = fgetcsv($file);
                     }
-                  // pr($data);               
+                //    pr($data);  die;                
 
               for($j = 0 ; $j < count($data) ; ){
                // $date = str_replace('/', '-', $data[$j][12]);
                 $updateData			=	array(
-                
-                  'Farmer_ID' =>  $data[$j][2],
-                  'Purchase_ID' =>  $data[$j][1],
-                  'PFMS_Status' =>  $data[$j][7],
-                  'bank_name' =>  $data[$j][14],
-                  'Ack_Status' =>  $data[$j][8],
-                  'UTR_No' =>  $data[$j][11],
-                  'Farmer_name_PFMS' =>  $data[$j][12],
-                  'Payment_Status' =>  $data[$j][9],
-                  'Payment_Date' => $data[$j][10], //date('d-m-Y',strtotime($date)),
-                  'Account_purchase' => $data[$j][13], //date('d-m-Y',strtotime($date)),
-                  'Latest_Account_no' => $data[$j][13], //date('d-m-Y',strtotime($date)),
-                   );
-                 
-                  //  pr($updateData); 
-                $this->db->where('Farmer_ID', $data[$j][2]);
+                'PFMS_Status' =>  $data[$j][7],
+                'Ack_Status' =>  $data[$j][10],
+                'UTR_No' =>  $data[$j][13],
+                'Farmer_name_PFMS' =>  $data[$j][3],
+                'Payment_Status' =>  $data[$j][11],
+                'Payment_Date' => $data[$j][12], //date('d-m-Y',strtotime($date)),
+                'Purchase_ID' =>  $data[$j][0],
+                 );
+                $this->db->where('Farmer_ID', $data[$j][1]);
                 $this->db->where('FY', fy()->FY);
+                $this->db->where('template_id', fy()->template_id);
                 $this->db->where('CenterName', $_POST['centerType']);
                 $this->db->where('product_type', fy()->product_type);	
                 $this->db->update('kisanvahidata',$updateData);
@@ -235,13 +208,11 @@ class Dashboard extends MY_Controller {
           }else{ 
              $data['response'] = 'failed'; 
           } 
-          // load view
-          $data['center_list'] = $this->AccountMapping_mod->center_list();
+          // load view 
           $this->load->view('invoice_data/js_pdfs',$data); 
         }else{
           // load view 
-          $data['center_list'] = $this->AccountMapping_mod->center_list();
-          $this->load->view('invoice_data/js_pdfs',$data); 
+          $this->load->view('invoice_data/js_pdfs'); 
         }
     
       }
@@ -302,6 +273,7 @@ class Dashboard extends MY_Controller {
                     $this->db->where('Farmer_ID', $data[$j][4]);
                     $this->db->where('Quantity', floatval($data[$j][7] + $data[$j][8]));
                     $this->db->where('FY', fy()->FY);
+                    $this->db->where('template_id', fy()->template_id);
                     $this->db->where('CenterName', $_POST['centerType']);
                     $this->db->where('product_type', fy()->product_type);	
                     $this->db->update('kisanvahidata',$updateData);

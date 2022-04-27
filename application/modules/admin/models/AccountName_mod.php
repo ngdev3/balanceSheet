@@ -434,11 +434,15 @@ class AccountName_mod extends CI_Model {
     
        
 	function Billing_details($id){
-		$this->db->select("*");
-		// $this->db->join('aa_billing as p_name', 'p_name.billing_id=ab.purchaser_name','left');
-        $this->db->from("aa_account_name as ab");
-		$this->db->where('ab.account_id ',ID_decode($id));
-		$this->db->order_by('ab.account_id ','desc');
+		$this->db->select("ab.*, qual.name as quality_name, p_name.name as purchaser_name, p_name.*, s_name.name as seller_name, s_name.*, s_name.contact_person_number as cnt_number, s_name.account_name as cnt_name, site_name.name as site_name, site_name.*");
+		$this->db->join('aa_quality as qual', 'qual.quality_id=ab.quality','left');
+		$this->db->join('aa_billing as p_name', 'p_name.billing_id=ab.purchaser_name','left');
+		$this->db->join('aa_seller as s_name', 's_name.seller_id=ab.seller_name','left');
+		$this->db->join('aa_site as site_name', 'site_name.site_id=ab.site_name','left');
+        $this->db->from("aa_billing as ab");
+		
+		$this->db->where('ab.id',ID_decode($id));
+		$this->db->order_by('ab.id','desc');
         $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 return $query->row();
@@ -497,9 +501,8 @@ class AccountName_mod extends CI_Model {
 		
         $requestData = $this->input->post(null, true);
         $columns = array(
-            1 => 'account_id',
-            2 => 'name',
-            3 => 'contact_person_number',
+            1 => 'name',
+            2 => 'contact_person_number',
         );
        
         $this->db->select("ab.*");
@@ -527,7 +530,7 @@ class AccountName_mod extends CI_Model {
     
        
 		$query = $this->db->get();
-		// pr($query->result()); die;
+		//pr($query->num_rows()); die;
         if ($query->num_rows()) {
             return $query->result();
         } else {

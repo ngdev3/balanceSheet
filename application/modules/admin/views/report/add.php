@@ -103,8 +103,7 @@ input[type=submit] {
                                            
                                            <div class="form-group col-md-6">
                                                <label for="inputEmail4"> Bill No.*</label>
-                                              <?php 
-                                               $name = @$result->challan_no;
+                                              <?php  $name = @$result->challan_no;
                                                $postvalue = @$_POST['challan_no'];
 //                                                    $val = !empty($postvalue)? $postvalue:$name;
                                                echo form_input(array('readonly'=>'readonly','name' => 'challan_no','maxlength'=>'25', 'class' => 'form-control', 'id' => 'bill_no', 'placeholder' => 'Challan No.', 'value' => !empty($postvalue) ? $postvalue : $name ));

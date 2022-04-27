@@ -141,7 +141,8 @@ class Billing extends CI_Controller {
 						'status' => $_POST['status'],
 						'billing_type' =>  $_POST['payment_type'],
 						'purchaser_account_no' =>$lastid,					
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,	
 											
 					);
@@ -160,7 +161,8 @@ class Billing extends CI_Controller {
 						'status' => $_POST['status'],
 						'billing_type' =>  $_POST['payment_type'],	
 						'purchaser_account_no'=>$isFoundAccountDetail[1],					
-						'FY' =>fy()->FY,	
+						'FY' =>fy()->FY,
+						'template_id' =>fy()->template_id,	
 						'product_type' =>fy()->product_type,					
 					);
 				}
@@ -336,10 +338,75 @@ class Billing extends CI_Controller {
         echo json_encode($json_data);  // send data as json format
 	}
 	
-	public function gen(){
-		// pr($this->Billing_mod->Billing_details('2')); die;
+	public function gen_inovice_val(){
 		
+		$quantity = $_POST['quantity'];
+		$range_of_amount = $_POST['amount'];
+		$todays_rate = round($range_of_amount / $quantity, 4);
+		$loop_range = ($range_of_amount / 50000);
+		$merge_amount = 0;
+		$finalArr = [];
+		// pr($quantity);
+		// pr($range_of_amount);
+		// pr($todays_rate);
+		// pr($loop_range);
+		for ($i=0; $i < $loop_range+1; $i++) { 
+			# code...
+			$gen = rand(35000, 49999);
+			$merge_amount += $gen;
+			$finalArr[] = array('amount'=>$gen,'quant'=>round($gen/$todays_rate,4));	
+		}
+		// pr($finalArr);
+		if(($range_of_amount - $merge_amount) < 0){
+			return  $this->gen_inovice_val();
 
+		}else {
+			$gen = $range_of_amount - $merge_amount;
+			array_push($finalArr,array('amount'=>$gen,'quant'=>round($gen/$todays_rate,4)));
+		}
+
+		// pr($Total);
+		// pr($quant);
+		return $finalArr;
+		if($quant !== $quantity){
+			$this->gen_inovice_val();
+		}else{
+			pr($finalArr);
+		}
+	}
+	public function invoice(){
+		if (isPostBack()) {
+			$this->form_validation->set_rules('billing_date', 'Billing Date', 'trim|required');
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required');
+			$this->form_validation->set_rules('rate', 'Rate', 'trim');
+			
+            if ($this->form_validation->run() == FALSE) {
+				$data['finalarr'] = $this->gen_inovice_val();
+				// pr($data); die;
+				if($data['finalarr'] !== 'Try Again'){
+					foreach($data['finalarr'] as $num => $values) {
+						$vatAmount[] = $values[ 'amount' ];
+						$quant[] = $values[ 'quant' ];
+					}
+					
+					$data['amount_sum'] = array_sum($vatAmount);
+					$data['quant_sum'] = array_sum($quant);
+					$quantity = $_POST['quantity'];
+					$range_of_amount = $_POST['amount'];
+					$todays_rate = round($range_of_amount / $quantity, 4);
+
+					$data['todays_rate'] = $todays_rate;
+				}   
+				// pr($this->gen_inovice_val());
+				// die;
+            } 
+		}
+		// pr($data);
+		$data['page'] = 'billing/view';
+		$data['title'] = "Track (The Rest Accounting Key) || View";
+		// die;
+        $this->load->view('layout', $data);
 	}
 
 	

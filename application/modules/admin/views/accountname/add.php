@@ -90,79 +90,13 @@ input[type=submit] {
                                                    <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('account_name'); ?></div></label>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputState2">State Code *</label>
-                                                    <?php  $name = @$result->state_code;
-                                                    $postvalue = @$_POST['state_code'];
+                                                    <label for="inputState2">Mobile No. *</label>
+                                                    <?php  $name = @$result->contact_person_number;
+                                                    $postvalue = @$_POST['contact_person_number'];
 //                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text', 'name' => 'state_code','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'State Code', 'value' => !empty($postvalue) ? $postvalue : $name ));
+                                                    echo form_input(array('type' =>'text', 'name' => 'contact_person_number','maxlength'=>'255', 'class' => 'form-control', 'id' => 'total_katti', 'placeholder' => 'Account Number', 'value' => !empty($postvalue) ? $postvalue : $name ));
                                                  ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('state_code'); ?></div></label>
-                                                </div>  
-
-
-                                            </div>
-                                            <div class="form-row">
-                                          <div class="form-group col-md-6">
-                                                    <label for="inputState2">Address *</label>
-                                                    <?php  $name = @$result->purchaser_address;
-                                                    $postvalue = @$_POST['purchaser_address'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text' , 'name' => 'purchaser_address','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'Address', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('purchaser_address'); ?></div></label>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="inputState2">GST No. *</label>
-                                                    <?php  $name = @$result->purchaser_gst_no;
-                                                    $postvalue = @$_POST['purchaser_gst_no'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text', 'name' => 'purchaser_gst_no','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'GST Number', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('purchaser_gst_no'); ?></div></label>
-                                                </div>  
-
-
-                                            </div>
-                                            <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                    <label for="inputState2">Email Id </label>
-                                                    <?php  $name = @$result->email_id;
-                                                    $postvalue = @$_POST['email_id'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text' , 'name' => 'email_id','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'Email Id', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('email_id'); ?></div></label>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="inputState2">Bank Name *</label>
-                                                    <?php  $name = @$result->bank_name;
-                                                    $postvalue = @$_POST['bank_name'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text', 'name' => 'bank_name','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'Bank Name', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('bank_name'); ?></div></label>
-                                                </div>  
-
-
-                                            </div>
-                                            <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                    <label for="inputState2">IFSC Code *</label>
-                                                    <?php  $name = @$result->ifsc_code;
-                                                    $postvalue = @$_POST['ifsc_code'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text' , 'name' => 'ifsc_code','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'IFSC Code', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('ifsc_code'); ?></div></label>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="inputState2">Account No. *</label>
-                                                    <?php  $name = @$result->purchaser_account_no;
-                                                    $postvalue = @$_POST['purchaser_account_no'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text', 'name' => 'purchaser_account_no','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'Account No', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('purchaser_account_no'); ?></div></label>
+                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('contact_person_number'); ?></div></label>
                                                 </div>  
 
 
@@ -171,15 +105,7 @@ input[type=submit] {
                                             
                                             
                                             <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                    <label for="inputState2">Contact  Name *</label>
-                                                    <?php  $name = @$result->contact_person_name;
-                                                    $postvalue = @$_POST['contact_person_name'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text' , 'name' => 'contact_person_name','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'Contact Name', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('contact_person_name'); ?></div></label>
-                                                </div>
+                                           
                                           
                                                <div class="form-group col-md-6">
                                                <label for="inputState2">Status*</label>
@@ -189,21 +115,6 @@ input[type=submit] {
                                                   </select>                                         
                                                </div> 
 
-
-                                           </div>
-                                             
-                                           <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                    <label for="inputState2">State Name *</label>
-                                                    <?php  $name = @$result->state;
-                                                    $postvalue = @$_POST['state'];
-//                                                    $val = !empty($postvalue)? $postvalue:$name;
-                                                    echo form_input(array('type' =>'text' , 'name' => 'state','maxlength'=>'255', 'class' => 'form-control', 'placeholder' => 'State Name', 'value' => !empty($postvalue) ? $postvalue : $name ));
-                                                 ?>
-                                                   <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('state'); ?></div></label>
-                                                </div>
-                                          
-                                              
 
                                            </div>
                                            
@@ -227,7 +138,8 @@ input[type=submit] {
                 </div>
             </main>
 
-            <script>
+
+<script>
 
 function autocomplete(inp, arr) {
    
@@ -351,11 +263,11 @@ autocomplete(document.getElementById("myInput"));
 
 
     $( function() {
+   // alert(new Date());
     $( "#datepicker" ).datepicker({ 
         
         dateFormat: "dd-mm-yy",
-        setDate:new Date()
-        
+        "setDate": '01-11-2020'     
         });
   } );
 
@@ -366,7 +278,10 @@ $('#total_weight, #rate_val').keyup(()=>{
     var rate = $('#rate_val').val();
     var total_amount = total_weight * rate;
     $('#final_amount').val(total_amount);
-    var total_katti = ((total_weight * 100) / 40).toFixed(2)
+   // $('#final_amount').val(total_amount);
+  //  console.log($( "#type_of_product option:selected" ).val());
+
+    var total_katti = ((total_weight * 100) / $( "#type_of_product option:selected" ).val()).toFixed(2)
     $('#total_katti').val(total_katti);
     console.log(total_katti)
 })
