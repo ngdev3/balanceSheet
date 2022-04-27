@@ -98,7 +98,7 @@ input[type=submit] {
                                                <select id="template_fy" class="form-control" name="template_fy" required  >
                                                       <option value="" selected >Select Financial Year</option>
                                                       <?php foreach($fy as $new) { ?>
-                                                        <option <?php if($new->status == 'Active'){ echo "selected"; }?> value="<?php echo $new->template_id; ?>" ><?php echo $new->template_name.' || '.$new->status; ?></option>
+                                                        <option <?php if($new->template_id == currentuserinfo()->default_firm){ echo "selected"; }?> value="<?php echo $new->template_id; ?>" ><?php echo $new->template_name.' || '.$new->FY.' || '; if($new->template_id == currentuserinfo()->default_firm){ echo " Active"; }else{  echo " In-Active";} ?></option>
                                                   <?php } ?>
                                                   </select>                                         
                                            <label  class="error"><div class="help-block" style="color:red"> <?php echo form_error('rokad_type'); ?></div></label>

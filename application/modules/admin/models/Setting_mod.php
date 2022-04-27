@@ -1268,14 +1268,12 @@ function get_all_financial_year(){
     }
     
     function add_fy($data){
-        
-      //  $this->db->where('template_id',$data['template_id']);
-        $this->db->update('aa_template',array('status'=>'Inactive'));
-
-        $this->db->where('template_id',$data['template_id']);
-        $this->db->update('aa_template',$data);
+       // pr($data); die;
+        $this->db->where('id', $this->session->userdata('userinfo')->id);
+        $up['default_firm'] = $data['template_id'];
+        $update =  $this->db->update('users', $up);
         $last_id = $this->db->affected_rows();
-           return $last_id;			
+        return $last_id;			
        }
 
 
