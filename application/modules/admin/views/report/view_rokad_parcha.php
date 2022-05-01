@@ -60,7 +60,7 @@
     </div>
     
     <div class="grid-child green">
-                <?php echo $val->account_name;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
+                <?php echo $val->name.'_'.$val->account_id;?> <i style="padding:8px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
     </div>
    
     </div>
@@ -89,7 +89,7 @@
 </div>
 
 <div class="grid-child green">
-            <?php echo $val->account_name;?><i  style="padding: 10px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
+            <?php echo $val->name.'_'.$val->account_id;?><i  style="padding: 10px;" class="c-red-500 ti-trash" onclick='deleteSingle(<?php echo $val->rokad_id; ?>)'></i>
 </div>
 
 </div>
